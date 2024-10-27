@@ -1,0 +1,25 @@
+{
+  "name": "crick-it",
+  "version": "1.0.0",
+  "private": true,
+  "description": "crick-it",
+  "author": "Gautham",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "gatsby": "^5.13.7",
+    "gatsby-plugin-manifest": "^5.13.1",
+    "gatsby-plugin-sass": "^6.13.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.80.4"
+  }
+}
