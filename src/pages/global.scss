@@ -1,0 +1,65 @@
+
+
+
+
+@font-face {
+    font-family: "HelveticaNeueCondensedBold";
+    src: url("../../static/fonts/HelveticaNeueCondensedBold.ttf") format("woff");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "HelveticaNeueBold";
+    src: url("../../static/fonts/HelveticaNeueBold.ttf") format("woff");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "HelveticaNeueLight";
+    src: url("../../static/fonts/HelveticaNeueLight.ttf") format("woff");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "HelveticaNeueMedium";
+    src: url("../../static/fonts/HelveticaNeueMedium.ttf") format("woff");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "HelveticaNeueLight";
+    src: url("../../static/fonts/HelveticaNeueLight.ttf") format("woff");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "HelveticaNeueLight";
+    src: url("../../static/fonts/HelveticaNeueLight.ttf") format("woff");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "HelveticaNeueLight";
+    src: url("../../static/fonts/HelveticaNeueLight.ttf") format("woff");
+    font-display: swap;
+}
+
+
+body{
+    margin: 0px;
+}
+
+.labeltxt{
+    font-size: 17px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+}
+
+.ipbtn{
+    height: 46px;
+    border-radius: 6px;
+    background-color: black;
+    color: white;
+    width: 100%;
+    font-size: 17px;
+}
