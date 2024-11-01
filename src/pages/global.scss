@@ -1,7 +1,3 @@
-
-
-
-
 @font-face {
     font-family: "HelveticaNeueCondensedBold";
     src: url("../../static/fonts/HelveticaNeueCondensedBold.ttf") format("woff");
@@ -45,21 +41,30 @@
 }
 
 
-body{
+body {
     margin: 0px;
 }
 
-.labeltxt{
+.mainsec {
+    max-width: 1400px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: auto;
+    color: var(--primaryTextcolor);
+}
+
+.labeltxt {
     font-size: 17px;
     font-family: sans-serif;
     margin-bottom: 10px;
 }
 
-.ipbtn{
+.ipbtn {
     height: 46px;
     border-radius: 6px;
     background-color: black;
     color: white;
     width: 100%;
     font-size: 17px;
+    cursor: pointer;
 }

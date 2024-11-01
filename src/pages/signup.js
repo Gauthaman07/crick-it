@@ -7,10 +7,10 @@ function signup() {
             <div className={classes.container}>
                 <div className={classes.panel}>
 
-                    <img src="https://aadcdn.msftauthimages.net/c1c6b6c8-0szh86gogeqp1rzy7edvut0du0txcycjc5yyqmeonk4/logintenantbranding/0/bannerlogo?ts=638336507741520629" />
+                    {/* <img src="https://aadcdn.msftauthimages.net/c1c6b6c8-0szh86gogeqp1rzy7edvut0du0txcycjc5yyqmeonk4/logintenantbranding/0/bannerlogo?ts=638336507741520629" /> */}
                     <div className={classes.formcon}>
                         <h1>Create Your Account</h1>
-                        <div className={classes.inputcon}>
+                        {/* <div className={classes.inputcon}>
                             <label className='labeltxt'>First Name</label>
                             <input type='text' placeholder='First Name' />
                         </div>
@@ -21,7 +21,7 @@ function signup() {
                         <div className={classes.inputcon}>
                             <label className='labeltxt'>Mobile Number</label>
                             <input type='number' placeholder='Mobile Number' />
-                        </div>
+                        </div> */}
                         <div className={classes.inputcon}>
                             <label className='labeltxt'>Email</label>
                             <input type='text' placeholder='Email' />

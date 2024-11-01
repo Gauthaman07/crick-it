@@ -1,0 +1,130 @@
+// src/styles/header.module.scss
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: black;
+    color: #fff;
+    padding: 40px;
+
+
+    a {
+        color: #fff;
+        text-decoration: none;
+        font-family: "HelveticaNeueMedium";
+    }
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navLinks {
+    display: flex;
+    gap: 4rem;
+
+    a {
+        font-size: 1.1rem;
+        transition: color 0.3s;
+        font-family: sans-serif;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    p {
+        font-size: 1.1rem;
+        transition: color 0.3s;
+        font-family: sans-serif;
+        margin-top: 0px;
+        margin-bottom: 0px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    // Hide desktop navigation on mobile
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+
+    .bar {
+        width: 25px;
+        height: 3px;
+        background-color: #fff;
+        margin: 4px 0;
+        transition: 0.4s;
+    }
+
+    @media (max-width: 768px) {
+        display: flex;
+    }
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 90%;
+    height: 100%;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 2rem 1rem;
+    gap: 1rem;
+    transition: right 0.3s ease;
+
+    a {
+        font-size: 1.2rem;
+        padding: 0.5rem 0;
+        width: 100%;
+        text-align: left;
+color: black;
+        &:hover {
+            color: #ffcc00;
+        }
+    }
+
+    &.drawerOpen {
+        right: 0;
+    }
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 1.5rem;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    // background: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+}
+
+.lctnav{
+    display: flex;
+
+    img{
+        width: 20px;
+        height: 20px;
+    }
+}

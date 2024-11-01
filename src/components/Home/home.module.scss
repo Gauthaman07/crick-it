@@ -43,6 +43,7 @@
     justify-content: center;
     margin-top: 110px;
     gap: 12px;
+    position: relative;
 
     .subblock {
         position: relative;
@@ -88,6 +89,7 @@
                 font-size: 18px;
                 border: none;
                 margin-top: 14px;
+                cursor: pointer;
             }
         }
     }
@@ -106,6 +108,7 @@
     .alertpanel {
         h1 {
             font-size: 36px;
+            letter-spacing: -1px !important;
         }
 
         p {
@@ -115,12 +118,14 @@
 
     .imgblock {
         gap: 2px;
+        z-index: -999;
 
         .subblock {
             width: 100%;
 
             .textblock {
                 left: 4%;
+
                 h3 {
                     text-align: left;
                     font-size: 20px;
