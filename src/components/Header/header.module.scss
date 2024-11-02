@@ -128,3 +128,29 @@ color: black;
         height: 20px;
     }
 }
+
+
+
+
+
+@media (max-width: 768px) {
+
+.mobnav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: black;
+    color: #fff;
+    padding: 20px;
+    a {
+        color: #fff;
+        text-decoration: none;
+        font-family: "HelveticaNeueMedium";
+    }
+}
+.lctnav{
+    display: flex;
+    align-items: center;
+}
+}

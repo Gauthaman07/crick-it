@@ -68,3 +68,42 @@ body {
     font-size: 17px;
     cursor: pointer;
 }
+
+.customnav {
+    background: transparent !important;
+}
+
+.customnav .ant-menu-item,
+.customnav .ant-menu-submenu-title {
+    color: black !important;
+    font-family: sans-serif;
+    font-size: 17px;
+}
+
+// .customnav .ant-menu-item:hover,
+// .customnav .ant-menu-submenu-title:hover {
+//     text-decoration: underline;
+// }
+
+.customnav .ant-menu-item a,
+.customnav .ant-menu-submenu-title a {
+    color: black !important;
+    font-family: sans-serif;
+    font-size: 17px;
+}
+
+
+@media (max-width: 768px) {
+    .onlyDes {
+        display: none !important;
+    }
+
+}
+
+
+
+@media (min-width: 768px) {
+    .onlyMob {
+        display: none !important;
+    }
+}
