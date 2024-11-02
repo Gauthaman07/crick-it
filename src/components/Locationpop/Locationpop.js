@@ -9,19 +9,23 @@ function Locationpop() {
 
 
     useEffect(() => {
-
-        const savedLocation = localStorage.getItem('selectedCity');
-        if (savedLocation) {
-            setSelectedCity(savedLocation);
-            setLocation(savedLocation);
+    
+        if (typeof window !== 'undefined') {
+            const savedLocation = localStorage.getItem('selectedCity');
+            if (savedLocation) {
+                setSelectedCity(savedLocation);
+                setLocation(savedLocation);
+            }
         }
-    }, [setLocation]);
+    }, []);
 
     const handleChange = (event) => {
         const city = event.target.value;
         setSelectedCity(city);
         setLocation(city);
-        localStorage.setItem('selectedCity', city);
+        if (typeof window !== "undefined") {
+            localStorage.setItem('selectedCity', city);
+        }
         window.location.reload()
     };
 

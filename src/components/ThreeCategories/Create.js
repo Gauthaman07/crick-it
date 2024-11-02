@@ -10,19 +10,24 @@ function Create() {
     const [preview, setPreview] = useState(null);
     const [hasGround, sethasGround] = useState(null);
 
-
     useEffect(() => {
-        const savedTeamName = localStorage.getItem('teamName');
-        const savedLogo = localStorage.getItem('teamLogo');
+        // Check if running in the browser environment
+        if (typeof window !== 'undefined') {
+            const savedTeamName = localStorage.getItem('teamName');
+            const savedLogo = localStorage.getItem('teamLogo');
 
-        if (savedTeamName) setTeamName(savedTeamName);
-        if (savedLogo) setPreview(savedLogo);
+            if (savedTeamName) setTeamName(savedTeamName);
+            if (savedLogo) setPreview(savedLogo);
+        }
     }, []);
 
     const saveData = () => {
-        localStorage.setItem('teamName', teamName);
-        localStorage.setItem('teamLogo', preview);
-        alert("Team details saved successfully!");
+        // Check if running in the browser environment
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('teamName', teamName);
+            localStorage.setItem('teamLogo', preview);
+            alert("Team details saved successfully!");
+        }
     };
 
     const handleLogoChange = (e) => {
