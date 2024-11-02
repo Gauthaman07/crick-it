@@ -26,7 +26,7 @@ function Locationpop() {
         if (typeof window !== "undefined") {
             localStorage.setItem('selectedCity', city);
         }
-        window.location.reload()
+        // window.location.reload()
     };
 
     if (!selectedCity) {
