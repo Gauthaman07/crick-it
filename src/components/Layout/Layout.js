@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../Header/Header'
 import Locationpop from '../Locationpop/Locationpop'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function Layout({ children }) {
 
@@ -23,6 +26,15 @@ function Layout({ children }) {
                 <Locationpop setLocation={setLocation} />
                 {children}
             </main>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                closeOnClick
+                pauseOnHover
+                draggable
+                theme="colored"
+            />
         </>
     )
 }

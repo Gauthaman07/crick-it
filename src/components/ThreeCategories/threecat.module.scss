@@ -46,12 +46,13 @@ input {
 }
 
 .logoUploadContainer {
-    border: 2px dashed black;
+    border: 2px solid grey;
     border-radius: 8px;
     padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 50px;
     position: relative;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -100,6 +101,11 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    h3 {
+        font-family: sans-serif;
+        font-size: 30px;
+    }
 }
 
 
@@ -141,6 +147,247 @@ input {
 }
 
 
+
+// Matchbboking----
+.bookingContainer {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #333;
+    text-align: center;
+    font-family: 'HelveticaNeueMedium';
+    margin-top: 60px;
+}
+
+.groundsList {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.groundCard {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #75757575;
+    border-radius: 8px;
+    gap: 50px;
+    justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.imageContainer {
+    // flex: 1;
+    width: 350px;
+    height: 246px;
+}
+
+.groundImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.detailsContainer {
+    // flex: 2;
+    padding-left: 20px;
+    width: 50%;
+
+    p{
+        margin-bottom: 24px;
+    }
+}
+
+.groundName {
+    font-size: 22px;
+    /* font-weight: bold; */
+    margin-bottom: 20px;
+    font-family: sans-serif;
+    margin-top: 10px;
+}
+
+.bookButton {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    border: none;
+    width: 150px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 50px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+
+.bookButton:hover {
+    background-color: #333;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+}
+
+.inputGroup {
+    margin-bottom: 15px;
+    margin-top: 30px;
+}
+
+.labeltxt {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input {
+    width: 94%;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirmButton,
+.cancelButton {
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.popbtn{
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    width: 180px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 50px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+
+
+
+
+
+
+
+/* Custom Multi-Select Dropdown Container */
+.selectContainer {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    font-family: Arial, sans-serif;
+
+    /* Optional: Add padding or margins if needed */
+}
+
+/* Dropdown Button */
+.selectbtn {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Dropdown List */
+.selectDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    display: none;
+
+    &.open {
+        display: block;  // Show the dropdown when `open` class is added
+    }
+}
+
+/* Each Dropdown Option */
+.option {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+
+    input {
+        margin-right: 10px;
+    }
+
+    &:hover {
+        background-color: #f1f1f1;
+    }
+
+    &.selected {
+        background-color: #ddd;
+    }
+}
+
+/* Checkbox for selected items */
+.option input {
+    margin-right: 10px;
+}
+
+/* Option when it's selected */
+.option.selected {
+    background-color: #ddd;
+}
+
+
+
+
 @media(max-width:768px) {
     .undercon {
         h2 {
@@ -161,5 +408,36 @@ input {
             margin-bottom: 0;
             text-align: center;
         }
+    }
+
+
+
+    .title {
+        font-size: 31px;
+        line-height: 50px;
+    }
+
+    .groundCard {
+        flex-direction: column;
+        gap: 20px;
+        padding: 16px;
+    }
+
+    .detailsContainer {
+        width: 100%;
+        padding-bottom: 20px;
+        padding-right: 20px;
+    }
+
+    .imageContainer {
+        width: 100%;
+    }
+
+    .bookButton {
+        width: 100%;
+    }
+
+    .modalContent {
+        width: 80%;
     }
 }

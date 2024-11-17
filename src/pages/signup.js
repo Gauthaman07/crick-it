@@ -1,40 +1,141 @@
-import React from 'react'
+import React, { useState } from 'react';
 import *as classes from '../styles/auth.module.scss'
+import { Signup, Login } from '../services/services'
+import { showToast } from '../utility/utility';
 
-function signup() {
+
+function SignupForm() {
+
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    // Validation error states
+    const [emailError, setEmailError] = useState(null);
+    const [passwordError, setPasswordError] = useState(null);
+    const [confirmPasswordError, setConfirmPasswordError] = useState(null);
+
+
+    const validateFields = () => {
+        let isValid = true;
+
+        // Reset previous errors
+        setEmailError(null);
+        setPasswordError(null);
+        setConfirmPasswordError(null);
+
+        if (!email) {
+            setEmailError("Email is required.");
+            isValid = false;
+        } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+            setEmailError("Enter a valid email address.");
+            isValid = false;
+        }
+
+        if (!password) {
+            setPasswordError("Password is required.");
+            isValid = false;
+        } else if (password.length < 6) {
+            setPasswordError("Password must be at least 6 characters.");
+            isValid = false;
+        }
+
+        if (!confirmPassword) {
+            setConfirmPasswordError("Confirm Password is required.");
+            isValid = false;
+        } else if (password !== confirmPassword) {
+            setConfirmPasswordError("Passwords do not match.");
+            isValid = false;
+        }
+
+        return isValid;
+    };
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Validate the fields before proceeding
+        if (!validateFields()) {
+            return; // Exit if validation fails
+        }
+
+        try {
+            // Step 1: Signup the user
+            const signupResponse = await Signup({ email, password, confirmPassword });
+
+            // Show success message via toast
+            showToast("success", "Account created successfully!");
+
+            // Step 2: Login immediately after signup
+            const loginResponse = await Login({ email, password });
+
+            // If login is successful, store the JWT token (e.g., in cookies or localStorage)
+            if (loginResponse.data.token) {
+                // Example: storing the token in cookies (you can also use localStorage if preferred)
+                document.cookie = `authO_tk=${loginResponse.data.token}; path=/`;
+
+                // Optionally, redirect the user to a dashboard or logged-in page
+                // Example: navigate("/dashboard");
+            }
+
+            // Reset form fields
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+
+        } catch (err) {
+            // Show error message via toast if the signup or login request fails
+            console.error("Error during signup or login:", err.response?.data || err.message);
+            showToast("error", err.response?.data?.message || "Failed to create account. Please try again.");
+        }
+    };
+
+
     return (
         <div className={classes.cabgcon}>
             <div className={classes.container}>
                 <div className={classes.panel}>
-
-                    {/* <img src="https://aadcdn.msftauthimages.net/c1c6b6c8-0szh86gogeqp1rzy7edvut0du0txcycjc5yyqmeonk4/logintenantbranding/0/bannerlogo?ts=638336507741520629" /> */}
                     <div className={classes.formcon}>
                         <h1>Create Your Account</h1>
-                        {/* <div className={classes.inputcon}>
-                            <label className='labeltxt'>First Name</label>
-                            <input type='text' placeholder='First Name' />
+                        <div className={classes.inputcon}>
+                            <label className="labeltxt">Email</label>
+                            <input
+                                type="text"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            {emailError && <p style={{ color: "red", margin: 0, paddingTop: "10px" }}>{emailError}</p>}
                         </div>
                         <div className={classes.inputcon}>
-                            <label className='labeltxt'>Last Name</label>
-                            <input type='text' placeholder='Last Name' />
+                            <label className="labeltxt">Password</label>
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {passwordError && <p style={{ color: "red", margin: 0, paddingTop:"10px" }}>{passwordError}</p>}
                         </div>
                         <div className={classes.inputcon}>
-                            <label className='labeltxt'>Mobile Number</label>
-                            <input type='number' placeholder='Mobile Number' />
-                        </div> */}
-                        <div className={classes.inputcon}>
-                            <label className='labeltxt'>Email</label>
-                            <input type='text' placeholder='Email' />
+                            <label className="labeltxt">Confirm Password</label>
+                            <input
+                                type="password"
+                                placeholder="Confirm Password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                            {confirmPasswordError && <p style={{ color: "red", margin: 0, paddingTop:"10px" }}>{confirmPasswordError}</p>}
                         </div>
-                        <div className={classes.inputcon}>
-                                <label className='labeltxt'>Password</label>
-                                <input type='password' placeholder='Password' />
-                            </div>
-                            <div className={classes.inputcon}>
-                                <label className='labeltxt'>Confirm Password</label>
-                                <input type='password' placeholder='Confirm Password' />
-                            </div>
-                        <button style={{ marginTop: "20px" }} className="ipbtn">Create Account</button>
+                        <button
+                            style={{ marginTop: "20px" }}
+                            className="ipbtn"
+                            onClick={handleSubmit}
+                        >
+                            Create Account
+                        </button>
                     </div>
                 </div>
             </div>
@@ -42,4 +143,4 @@ function signup() {
     )
 }
 
-export default signup
+export default SignupForm

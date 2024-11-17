@@ -7,8 +7,8 @@
     padding: 1rem 2rem;
     background-color: black;
     color: #fff;
-    padding: 40px;
-
+    // padding: 40px;
+    height: 90px;
 
     a {
         color: #fff;
@@ -18,8 +18,14 @@
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+ height: 90px;
+
+ img{
+    height: 105px;
+    width: 270px;
+    object-fit: cover;
+    cursor: pointer;
+ }
 }
 
 .navLinks {
@@ -35,6 +41,7 @@
             text-decoration: underline;
         }
     }
+
     p {
         font-size: 1.1rem;
         transition: color 0.3s;
@@ -46,6 +53,7 @@
             text-decoration: underline;
         }
     }
+
     // Hide desktop navigation on mobile
     @media (max-width: 768px) {
         display: none;
@@ -90,7 +98,8 @@
         padding: 0.5rem 0;
         width: 100%;
         text-align: left;
-color: black;
+        color: black;
+
         &:hover {
             color: #ffcc00;
         }
@@ -120,37 +129,76 @@ color: black;
     z-index: 9;
 }
 
-.lctnav{
+.lctnav {
     display: flex;
 
-    img{
+    img {
         width: 20px;
         height: 20px;
     }
 }
 
+.userDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownMenu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 10px;
+}
+
+.userDropdown:hover .dropdownMenu {
+    display: block;
+}
+
+.dropdownMenu a,
+.dropdownMenu button {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdownMenu a:hover,
+.dropdownMenu button:hover {
+    background-color: #ddd;
+}
 
 
 
 
 @media (max-width: 768px) {
 
-.mobnav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: black;
-    color: #fff;
-    padding: 20px;
-    a {
+    .mobnav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background-color: black;
         color: #fff;
-        text-decoration: none;
-        font-family: "HelveticaNeueMedium";
+        padding: 10px;
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            font-family: "HelveticaNeueMedium";
+        }
     }
-}
-.lctnav{
-    display: flex;
-    align-items: center;
-}
+
+    .lctnav {
+        display: flex;
+        align-items: center;
+    }
+    .logo{
+        img{
+            width: 220px;
+            height: 90px;
+        }
+    }
 }

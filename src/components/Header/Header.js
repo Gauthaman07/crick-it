@@ -2,13 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Link, navigate } from 'gatsby';
 import * as classes from './header.module.scss'
 import Locationicon from '../../images/icons/pin.png'
-import { Menu, Input, Button, Drawer } from 'antd';
-import { MailOutlined, AppstoreOutlined, SettingOutlined, MenuOutlined } from '@ant-design/icons';
-
+import { Menu, Input, Button, Drawer, Dropdown } from 'antd';
+import { MailOutlined, AppstoreOutlined, SettingOutlined, MenuOutlined, } from '@ant-design/icons';
+import { getCookieData, deleteCookieData } from '../../utility/utility';
+import SubMenu from 'antd/es/menu/SubMenu';
+import { DownOutlined } from '@ant-design/icons';
+import Logo from '../../images/crickonnectlogo.png'
 
 function Header({ location }) {
 
     const [visible, setVisible] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userName, setUserName] = useState('');
+    const AccessToken = getCookieData("authO_tk");
+
 
     const showDrawer = () => {
         setVisible(true);
@@ -23,6 +30,28 @@ function Header({ location }) {
     };
 
 
+
+    // Handle Logout
+    const handleLogout = () => {
+        // You can use the deleteCookieData function if needed to remove the cookie
+        deleteCookieData('authO_tk'); // Ensure you've imported deleteCookieData from utility
+        setIsAuthenticated(false);
+        navigate('/login');
+    };
+
+
+    const menu = (
+        <Menu>
+            <Menu.Item>
+                My Account
+            </Menu.Item>
+            <Menu.Item onClick={handleLogout}>
+                Logout
+            </Menu.Item>
+        </Menu>
+    );
+
+
     return (
         <>
 
@@ -30,7 +59,7 @@ function Header({ location }) {
             <header >
                 <div className={`onlyDes ${classes.header}`}>
                     <div className={classes.logo}>
-                        <Link to="/">CricKOnnect</Link>
+                        <img src={Logo} />
                     </div>
 
                     {/* Desktop Navigation */}
@@ -54,7 +83,15 @@ function Header({ location }) {
                                 <p>{location}</p>
                             </div>
                         }
-                        <Link to="/login">Login</Link>
+                        {AccessToken ? (
+                            <Dropdown overlay={menu} trigger={['click']}>
+                                <a style={{ cursor: "pointer" }} className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+                                    Hello, {userName || 'User'} <DownOutlined />
+                                </a>
+                            </Dropdown>
+                        ) : (
+                            <Link to="/login">Login</Link>
+                        )}
                     </nav>
                 </div>
                 <div className={`onlyMob ${classes.mobnav}`}>
@@ -79,13 +116,22 @@ function Header({ location }) {
                             <Menu.Item key="tournament">
                                 <Link to="/tournaments">Tournaments</Link>
                             </Menu.Item>
-                            <Menu.Item key="login">
-                                <Link to="/login">Login</Link>
-                            </Menu.Item>
+                            {AccessToken ? (
+
+                                <SubMenu key="settings" title="Settings">
+                                    <Menu.Item key="myaccount">My Account</Menu.Item>
+                                    <Menu.Item onClick={handleLogout} key="logout">Log out</Menu.Item>
+                                </SubMenu>
+                            ) : (
+                                <Menu.Item key="login">
+                                    <Link to="/login">Login</Link>
+                                </Menu.Item>
+                            )}
+
                         </Menu>
                     </Drawer>
                     <div className={classes.logo}>
-                        <Link to="/">CricKOnnect</Link>
+                        <img src={Logo} />
                     </div>
                     <div>
                         {location &&
@@ -106,7 +152,7 @@ function Header({ location }) {
                     </div>
                 </div>
 
-            </header></>
+            </header ></>
     )
 }
 
