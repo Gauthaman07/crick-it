@@ -1,11 +1,11 @@
 import React from 'react'
-import Create from '../components/ThreeCategories/Create'
+import Myteam from '../components/ThreeCategories/Myteam'
 
 function CreateTeam() {
     return (
         <>
 
-            <Create />
+            <Myteam />
 
         </>
     )
