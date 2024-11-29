@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import *as classes from '../styles/auth.module.scss'
 import { Signup, Login } from '../services/services'
 import { showToast } from '../utility/utility';
+import { navigate } from 'gatsby';
 
 
 function SignupForm() {
@@ -10,12 +11,14 @@ function SignupForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     // Validation error states
     const [emailError, setEmailError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
     const [confirmPasswordError, setConfirmPasswordError] = useState(null);
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const validateFields = () => {
         let isValid = true;
@@ -52,43 +55,39 @@ function SignupForm() {
         return isValid;
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate the fields before proceeding
+        // Validate fields
         if (!validateFields()) {
             return; // Exit if validation fails
         }
 
         try {
-            // Step 1: Signup the user
+            setLoading(true); // Start loading
+
+            // Call the signup API
             const signupResponse = await Signup({ email, password, confirmPassword });
 
-            // Show success message via toast
-            showToast("success", "Account created successfully!");
+            showToast('success', 'Account created successfully! Redirecting to login...');
 
-            // Step 2: Login immediately after signup
-            const loginResponse = await Login({ email, password });
-
-            // If login is successful, store the JWT token (e.g., in cookies or localStorage)
-            if (loginResponse.data.token) {
-                // Example: storing the token in cookies (you can also use localStorage if preferred)
-                document.cookie = `authO_tk=${loginResponse.data.token}; path=/`;
-
-                // Optionally, redirect the user to a dashboard or logged-in page
-                // Example: navigate("/dashboard");
-            }
+            // Redirect to login after a delay
+            setTimeout(() => {
+                navigate('/login');
+            }, 3000);
 
             // Reset form fields
             setEmail('');
             setPassword('');
             setConfirmPassword('');
-
         } catch (err) {
-            // Show error message via toast if the signup or login request fails
-            console.error("Error during signup or login:", err.response?.data || err.message);
-            showToast("error", err.response?.data?.message || "Failed to create account. Please try again.");
+            console.error('Error during signup:', err.response?.data || err.message);
+            showToast(
+                'error',
+                err.response?.data?.message || 'Failed to create account. Please try again.'
+            );
+        } finally {
+            setLoading(false); // Stop loading
         }
     };
 
@@ -117,7 +116,7 @@ function SignupForm() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            {passwordError && <p style={{ color: "red", margin: 0, paddingTop:"10px" }}>{passwordError}</p>}
+                            {passwordError && <p style={{ color: "red", margin: 0, paddingTop: "10px" }}>{passwordError}</p>}
                         </div>
                         <div className={classes.inputcon}>
                             <label className="labeltxt">Confirm Password</label>
@@ -127,14 +126,20 @@ function SignupForm() {
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />
-                            {confirmPasswordError && <p style={{ color: "red", margin: 0, paddingTop:"10px" }}>{confirmPasswordError}</p>}
+                            {confirmPasswordError && <p style={{ color: "red", margin: 0, paddingTop: "10px" }}>{confirmPasswordError}</p>}
                         </div>
                         <button
-                            style={{ marginTop: "20px" }}
-                            className="ipbtn"
+                            type="submit"
                             onClick={handleSubmit}
+                            style={{ marginTop: '20px' }}
+                            className="ipbtn"
+                            disabled={loading} 
                         >
-                            Create Account
+                            {loading ? (
+                                <div className={classes.loader}></div> 
+                            ) : (
+                                'Create Account'
+                            )}
                         </button>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     // Validate fields before submitting
     const validateFields = () => {
@@ -42,6 +43,7 @@ function Login() {
         }
 
         try {
+            setLoading(true);
             // Step 1: Attempt login
             const loginResponse = await SignIn({
                 email,
@@ -54,7 +56,7 @@ function Login() {
                 // Step 2: Show success toast and store token in cookie
                 showToast("success", "Login successful!");
                 setCookieData('authO_tk', loginResponse.data.token);  // Store token in cookie
-                
+
                 setTimeout(() => {
                     navigate('/')
                 }, 2000);
@@ -67,6 +69,9 @@ function Login() {
             // Handle error (network error, etc.)
             console.error("Error during login:", err.response?.data || err.message);
             showToast("error", err.response?.data?.message || "Something went wrong. Please try again.");
+        }
+        finally {
+            setLoading(false); // Stop loading
         }
     };
 
@@ -103,7 +108,11 @@ function Login() {
                             </div>
                             <a>Forgot Password</a>
                             <button style={{ marginTop: "20px" }} className="ipbtn" onClick={handleSubmit}>
-                                Log In
+                                {loading ? (
+                                    <div className={classes.loader}></div>
+                                ) : (
+                                    'Log In'
+                                )}
                             </button>
 
                             <p>Don't have an account? <a href='/signup/'>Sign-up</a></p>

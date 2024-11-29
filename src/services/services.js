@@ -36,3 +36,15 @@ export const fetchMyTeam = () => {
         }
     );
 };
+
+
+export const fetchGrounds = (location) => {
+    const AccessToken = getCookieData('authO_tk');
+
+    return axios.get("https://crikonnect-api-production.up.railway.app/api/grounds", {
+        params: { location },
+        headers: {
+            Authorization: `Bearer ${AccessToken}`,
+        },
+    });
+};

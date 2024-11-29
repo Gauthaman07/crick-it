@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { fetchMyTeam } from '../../services/services';
 import Create from './Create';
+import * as classes from './/threecat.module.scss'
+import Customloader from '../Elements/Customloader';
+
 
 const Myteam = () => {
     const [team, setTeam] = useState(null);
@@ -28,7 +31,7 @@ const Myteam = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Customloader />
     }
 
     if (error) {
@@ -38,18 +41,13 @@ const Myteam = () => {
     // Render team details if available
     if (team) {
         return (
-            <div>
-                <h1>Team Details</h1>
-                <h2>Team Name: {team.teamName}</h2>
-                <img src={team.teamLogo} alt="Team Logo" style={{ width: '150px' }} />
-                {team.hasOwnGround && (
-                    <>
-                        <h3>Ground: {team.groundDescription}</h3>
-                        <p>Facilities: {team.facilities.join(', ')}</p>
-                        <p>Ground Fee: ₹{team.groundFee}</p>
-                        <img src={team.groundImage} alt="Ground" style={{ width: '200px' }} />
-                    </>
-                )}
+            <div className='mainsec'>
+                <div className={classes.teaminfo}>
+                   
+                    <img src={team.teamLogo} alt="Team Logo"  />
+                    <h2>{team.teamName}</h2>
+                </div>
+               
             </div>
         );
     }

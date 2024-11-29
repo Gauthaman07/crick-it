@@ -23,7 +23,9 @@ function Layout({ children }) {
             <Header location={location} />
 
             <main className="layout-main">
-                <Locationpop setLocation={setLocation} />
+                {window.location.pathname === '/match-booking/' && (
+                    <Locationpop setLocation={setLocation} />
+                )}
                 {children}
             </main>
             <ToastContainer

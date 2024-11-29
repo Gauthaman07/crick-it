@@ -58,17 +58,21 @@ function Header({ location }) {
 
             <header >
                 <div className={`onlyDes ${classes.header}`}>
-                    <div className={classes.logo}>
+                    <div
+                        onClick={() => {
+                            navigate('/')
+                        }}
+                        className={classes.logo}>
                         <img src={Logo} />
                     </div>
 
                     {/* Desktop Navigation */}
                     <nav className={classes.navLinks}>
-                        <Link to="/">Home</Link>
-                        <Link to="/create-team">Create Team</Link>
+                        {/* <Link to="/">Home</Link> */}
+                        <Link to="/my-team">My Team</Link>
                         <Link to="/match-booking">Match Booking</Link>
                         <Link to="/tournaments">Tournaments</Link>
-                        {location &&
+                        {/* {location &&
                             <div className={classes.lctnav}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +86,7 @@ function Header({ location }) {
                                 </svg>
                                 <p>{location}</p>
                             </div>
-                        }
+                        } */}
                         {AccessToken ? (
                             <Dropdown overlay={menu} trigger={['click']}>
                                 <a style={{ cursor: "pointer" }} className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
@@ -108,7 +112,7 @@ function Header({ location }) {
                                 <Link to="/">Home</Link>
                             </Menu.Item>
                             <Menu.Item key="dreateteam">
-                                <Link to="/create-team">Create Team</Link>
+                                <Link to="/my-team">My Team</Link>
                             </Menu.Item>
                             <Menu.Item key="match">
                                 <Link to="/match-booking">Match Booking</Link>
@@ -130,10 +134,14 @@ function Header({ location }) {
 
                         </Menu>
                     </Drawer>
-                    <div className={classes.logo}>
+                    <div
+
+                        onClick={() => {
+                            navigate('/')
+                        }} className={classes.logo}>
                         <img src={Logo} />
                     </div>
-                    <div>
+                    {/* <div>
                         {location &&
                             <div className={classes.lctnav}>
                                 <svg
@@ -149,7 +157,7 @@ function Header({ location }) {
                                 <p>{location}</p>
                             </div>
                         }
-                    </div>
+                    </div> */}
                 </div>
 
             </header ></>

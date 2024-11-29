@@ -10,7 +10,9 @@ function Create() {
     const [formData, setFormData] = useState({
         teamName: "",
         teamLogo: null,
+        teamlocation: "",
         hasOwnGround: "",
+        groundName: "",
         groundDescription: "",
         groundImage: null,
         groundFee: "",
@@ -69,10 +71,18 @@ function Create() {
             [name]: files ? files[0] : value,
         }));
     };
-
+    const handleSelectChange = (e) => {
+        setFormData((prev) => ({
+            ...prev,
+            teamlocation: e.target.value,
+        }));
+    };
     const handleBlur = (e) => {
         const { name } = e.target;
         setTouched((prev) => ({ ...prev, [name]: true }));
+    };
+    const handleselectBlur = (field) => {
+        setTouched((prev) => ({ ...prev, [field]: true }));
     };
 
     const validate = () => {
@@ -80,9 +90,12 @@ function Create() {
 
         if (!formData.teamName.trim()) newErrors.teamName = "please enter your team name";
         if (!formData.teamLogo) newErrors.teamLogo = "please upload your team logo";
+        if (!formData.teamlocation) newErrors.teamlocation = "please select location";
         if (!formData.hasOwnGround) newErrors.hasOwnGround = "please select your answer";
 
         if (formData.hasOwnGround === "Yes") {
+            if (!formData.groundName.trim())
+                newErrors.groundName = "please enter ground name";
             if (!formData.groundDescription.trim())
                 newErrors.groundDescription = "please describe your ground";
             if (!formData.groundImage) newErrors.groundImage = "please upload your ground image";
@@ -119,14 +132,19 @@ function Create() {
         if (formData.teamLogo) {
             data.append("teamLogo", formData.teamLogo);
         }
-
+        if (formData.teamlocation) {
+            data.append("location", formData.teamlocation);
+        }
         // Convert "Yes" and "No" to boolean values for backend compatibility
         const hasOwnGroundBoolean = formData.hasOwnGround === "Yes";
         data.append("hasOwnGround", hasOwnGroundBoolean);
 
         if (hasOwnGroundBoolean) {
+            if (formData.groundName) {
+                data.append("groundName", formData.groundName);
+            }
             if (formData.groundDescription) {
-                data.append("groundDescription", formData.groundDescription);
+                data.append("description", formData.groundDescription);
             }
             if (formData.groundImage) {
                 data.append("groundImage", formData.groundImage);
@@ -151,6 +169,9 @@ function Create() {
             // Optional: reset form or provide feedback to the user
             // resetForm();
             showToast("success", "Team created successfully!");
+            setTimeout(() => {
+                window.location.reload()
+            }, 3000);
         } catch (error) {
             console.error("Error submitting form:", error);
             showToast("error", "An error occurred while submitting the form. Please try again.");
@@ -173,71 +194,126 @@ function Create() {
 
                 <div className={classes.createform}>
                     <form onSubmit={handleSubmit}>
-                        {/* Team Name */}
-                        <div className={classes.inputcon}>
-                            <label>Team Name *</label>
-                            <input
-                                type="text"
-                                name="teamName"
-                                value={formData.teamName}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {touched.teamName && errors.teamName && (
-                                <p className={classes.error}>{errors.teamName}</p>
-                            )}
-                        </div>
-
-                        {/* Team Logo */}
-                        <div className={classes.filecon}>
-                            <label>Team Logo *</label>
-                            <input
-                                type="file"
-                                name="teamLogo"
-                                accept="image/*"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            {touched.teamLogo && errors.teamLogo && (
-                                <p className={classes.error}>{errors.teamLogo}</p>
-                            )}
-                        </div>
-
-                        {/* Own Ground */}
-                        <div className={classes.inputcon}>
-                            <label>Does Your Team Have Own Ground? *</label>
-                            <div className={classes.radios}>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="hasOwnGround"
-                                        value="Yes"
-                                        onChange={handleChange}
-                                        checked={formData.hasOwnGround === "Yes"}
-                                        onBlur={handleBlur}
-                                    />
-                                    Yes
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="hasOwnGround"
-                                        value="No"
-                                        onChange={handleChange}
-                                        checked={formData.hasOwnGround === "No"}
-                                        onBlur={handleBlur}
-                                    />
-                                    No
-                                </label>
+                        <div className={classes.row}>
+                            {/* Team Name */}
+                            <div className={classes.inputcon}>
+                                <label>Team Name *</label>
+                                <input
+                                    type="text"
+                                    name="teamName"
+                                    value={formData.teamName}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {touched.teamName && errors.teamName && (
+                                    <p className={classes.error}>{errors.teamName}</p>
+                                )}
                             </div>
-                            {touched.hasOwnGround && errors.hasOwnGround && (
-                                <p className={classes.error}>{errors.hasOwnGround}</p>
-                            )}
-                        </div>
 
+                            {/* Team Logo */}
+                            <div className={classes.filecon}>
+                                <label>Team Logo *</label>
+                                <input
+                                    type="file"
+                                    name="teamLogo"
+                                    accept="image/*"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {touched.teamLogo && errors.teamLogo && (
+                                    <p className={classes.error}>{errors.teamLogo}</p>
+                                )}
+                            </div>
+                        </div>
+                        <div className={classes.row}>
+                            <div className={classes.inputcon}>
+                                <label>Team/Ground Location *</label>
+                                <select
+                                    className={classes.select}
+                                    name="teamlocation"
+                                    value={formData.teamlocation}
+                                    onChange={handleSelectChange}
+                                    onBlur={() => handleselectBlur("teamlocation")}
+                                    required
+                                >
+                                    <option value="" disabled>
+                                        Select a location
+                                    </option>
+                                    <option value="Tirupur">Tirupur</option>
+                                    <option value="Coimbatore">Coimbatore</option>
+                                    <option value="Chennai">Chennai</option>
+                                    <option value="Salem">Salem</option>
+                                    <option value="Dindigul">Dindigul</option>
+                                </select>
+                                {touched.teamlocation && errors.teamlocation && (
+                                    <p className={classes.error}>{errors.teamlocation}</p>
+                                )}
+                            </div>
+                            {/* Own Ground */}
+                            <div className={classes.inputcon}>
+                                <label>Does Your Team Have Own Ground? *</label>
+                                <div className={classes.radios}>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="hasOwnGround"
+                                            value="Yes"
+                                            onChange={handleChange}
+                                            checked={formData.hasOwnGround === "Yes"}
+                                            onBlur={handleBlur}
+                                        />
+                                        Yes
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="hasOwnGround"
+                                            value="No"
+                                            onChange={handleChange}
+                                            checked={formData.hasOwnGround === "No"}
+                                            onBlur={handleBlur}
+                                        />
+                                        No
+                                    </label>
+                                </div>
+                                {touched.hasOwnGround && errors.hasOwnGround && (
+                                    <p className={classes.error}>{errors.hasOwnGround}</p>
+                                )}
+                            </div>
+                        </div>
                         {/* Conditional Fields */}
                         {formData.hasOwnGround === "Yes" && (
                             <>
+                                <div className={classes.row}>
+                                    <div className={classes.inputcon}>
+                                        <label>Ground Name *</label>
+                                        <input
+                                            type="text"
+                                            name="groundName"
+                                            value={formData.groundName}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                        {touched.groundName && errors.groundName && (
+                                            <p className={classes.error}>{errors.groundName}</p>
+                                        )}
+                                    </div>
+
+                                    <div className={classes.filecon}>
+                                        <label>Ground Image *</label>
+                                        <input
+                                            type="file"
+                                            name="groundImage"
+                                            accept="image/*"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                        {touched.groundImage && errors.groundImage && (
+                                            <p className={classes.error}>{errors.groundImage}</p>
+                                        )}
+                                    </div>
+                                </div>
+
                                 <div className={classes.inputcon}>
                                     <label>Ground Description *</label>
                                     <textarea
@@ -252,64 +328,52 @@ function Create() {
                                     )}
                                 </div>
 
-                                <div className={classes.filecon}>
-                                    <label>Ground Image *</label>
-                                    <input
-                                        type="file"
-                                        name="groundImage"
-                                        accept="image/*"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-                                    {touched.groundImage && errors.groundImage && (
-                                        <p className={classes.error}>{errors.groundImage}</p>
-                                    )}
-                                </div>
-
-                                <div className={classes.inputcon}>
-                                    <label>Ground Facilities</label>
-                                    <div
-                                        className={classes.dropdownTrigger} // Added className
-                                        onClick={toggleDropdown}
-                                    >
-                                        {selectedOptions.length === 0
-                                            ? "Select Facilities"
-                                            : selectedOptions.join(", ")}
-                                    </div>
-                                    {isOpen && (
-                                        <div className={classes.dropdownMenu}>
-                                            {options.map((option) => (
-                                                <label key={option}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedOptions.includes(option)}
-                                                        onChange={() => handleOptionClick(option)}
-                                                    />
-                                                    {option}
-                                                </label>
-                                            ))}
+                                <div className={classes.row}>
+                                    <div className={classes.inputcon}>
+                                        <label>Ground Facilities</label>
+                                        <div
+                                            className={classes.dropdownTrigger} // Added className
+                                            onClick={toggleDropdown}
+                                        >
+                                            {selectedOptions.length === 0
+                                                ? "Select Facilities"
+                                                : selectedOptions.join(", ")}
                                         </div>
-                                    )}
+                                        {isOpen && (
+                                            <div className={classes.dropdownMenu}>
+                                                {options.map((option) => (
+                                                    <label key={option}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedOptions.includes(option)}
+                                                            onChange={() => handleOptionClick(option)}
+                                                        />
+                                                        {option}
+                                                    </label>
+                                                ))}
+                                            </div>
+                                        )}
 
-                                </div>
+                                    </div>
 
 
 
 
-                                <div className={classes.inputcon}>
-                                    <label>Ground Fee ₹ *</label>
-                                    <input
-                                        type="number"
-                                        name="groundFee"
-                                        value={formData.groundFee}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        min="0"
-                                        onWheel={(e) => e.target.blur()}
-                                    />
-                                    {touched.groundFee && errors.groundFee && (
-                                        <p className={classes.error}>{errors.groundFee}</p>
-                                    )}
+                                    <div className={classes.inputcon}>
+                                        <label>Ground Fee ₹ *</label>
+                                        <input
+                                            type="number"
+                                            name="groundFee"
+                                            value={formData.groundFee}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            min="0"
+                                            onWheel={(e) => e.target.blur()}
+                                        />
+                                        {touched.groundFee && errors.groundFee && (
+                                            <p className={classes.error}>{errors.groundFee}</p>
+                                        )}
+                                    </div>
                                 </div>
                             </>
                         )}
