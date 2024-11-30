@@ -23,7 +23,7 @@ function Layout({ children }) {
             <Header location={location} />
 
             <main className="layout-main">
-                {window.location.pathname === '/match-booking/' && (
+                {typeof window !== "undefined" && window.location.pathname === "/match-booking/" && (
                     <Locationpop setLocation={setLocation} />
                 )}
                 {children}

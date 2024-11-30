@@ -14,7 +14,7 @@ const Myteam = () => {
         const getTeamDetails = async () => {
             try {
                 const response = await fetchMyTeam();
-                setTeam(response.data.team); // Assuming the response structure includes `team`
+                setTeam(response.data.team); 
             } catch (err) {
                 if (err.response?.status === 404) {
                     // No team found

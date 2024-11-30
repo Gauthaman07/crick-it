@@ -170,7 +170,9 @@ function Create() {
             // resetForm();
             showToast("success", "Team created successfully!");
             setTimeout(() => {
-                window.location.reload()
+                if (typeof window !== "undefined") {
+                    window.location.reload();
+                }
             }, 3000);
         } catch (error) {
             console.error("Error submitting form:", error);
