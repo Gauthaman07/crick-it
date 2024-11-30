@@ -3,7 +3,7 @@ import { fetchMyTeam } from '../../services/services';
 import Create from './Create';
 import * as classes from './/threecat.module.scss'
 import Customloader from '../Elements/Customloader';
-
+import { navigate } from 'gatsby';
 
 const Myteam = () => {
     const [team, setTeam] = useState(null);
@@ -14,7 +14,7 @@ const Myteam = () => {
         const getTeamDetails = async () => {
             try {
                 const response = await fetchMyTeam();
-                setTeam(response.data.team); 
+                setTeam(response.data.team);
             } catch (err) {
                 if (err.response?.status === 404) {
                     // No team found
@@ -35,19 +35,30 @@ const Myteam = () => {
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return (
+            <div className="error-container">
+                <div className="error-message">
+                    <h3>Oops!</h3>
+                    <p>{error}</p>
+                    <button style={{ width: "240px" }} className='ipbtn' onClick={() => (navigate('/login'))}>
+                        Go to Login
+                    </button>
+                </div>
+            </div>
+        );
     }
+
 
     // Render team details if available
     if (team) {
         return (
             <div className='mainsec'>
                 <div className={classes.teaminfo}>
-                   
-                    <img src={team.teamLogo} alt="Team Logo"  />
+
+                    <img src={team.teamLogo} alt="Team Logo" />
                     <h2>{team.teamName}</h2>
                 </div>
-               
+
             </div>
         );
     }

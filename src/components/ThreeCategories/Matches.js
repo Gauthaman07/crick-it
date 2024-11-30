@@ -3,7 +3,7 @@ import * as classes from './threecat.module.scss'
 import { FaMapMarkerAlt, FaClipboardList } from 'react-icons/fa';
 import { fetchGrounds } from '../../services/services';
 import Customloader from '../Elements/Customloader';
-
+import { navigate } from 'gatsby';
 
 function Matches() {
     // const groundsData = [
@@ -91,8 +91,34 @@ function Matches() {
     }
 
     if (error) {
-        return <p className={classes.error}>{error}</p>;
+        // If there's an error
+        if (error === "You are not logged in. Please log in to continue.") {
+            return (
+                <div className="error-container">
+                    <div className="error-message">
+                        <h3>Oops!</h3>
+                        <p>You are not logged in. Please log in to continue.</p>
+                        <button style={{ width: "240px" }} className="ipbtn" onClick={() => (navigate('/login'))}>
+                            Go to Login
+                        </button>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="error-container">
+                    <div className="error-message">
+                        <h3>Uh-oh!</h3>
+                        <p>You haven't created a team yet. Please create your team to continue.</p>
+                        <button style={{ width: "240px" }} className="ipbtn" onClick={() => (navigate('/my-team/'))}>
+                            Create Team
+                        </button>
+                    </div>
+                </div>
+            );
+        }
     }
+
 
     return (
         <div className={classes.bookingContainer}>

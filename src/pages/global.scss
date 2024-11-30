@@ -92,12 +92,57 @@ body {
     font-size: 17px;
 }
 
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // height: 100vh; 
+    text-align: center;
+    background-color: #f8f9fa;
+    /* Optional: light background for visibility */
+}
+
+.error-message {
+    padding: 20px;
+
+
+
+    h3 {
+        font-size: 110px !important;
+        font-family: ui-monospace;
+        text-transform: uppercase;
+        margin-bottom: 0px;
+        color: #e74c3c;
+        letter-spacing: 20px;
+    }
+
+    p {
+        font-family: sans-serif !important;
+        font-size: 20px !important;
+        margin-top: 0px;
+        margin-bottom: 70px;
+    }
+}
+
+
+
 
 @media (max-width: 768px) {
     .onlyDes {
         display: none !important;
     }
 
+    .error-message {
+        h3 {
+            font-size: 75px !important;
+            letter-spacing: 2px;
+        }
+        p{
+            font-size: 17px !important;
+            line-height: 28px;
+            margin-bottom: 40px;    
+        }
+    }
 }
 
 
