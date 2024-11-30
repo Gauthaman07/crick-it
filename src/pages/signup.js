@@ -133,10 +133,10 @@ function SignupForm() {
                             onClick={handleSubmit}
                             style={{ marginTop: '20px' }}
                             className="ipbtn"
-                            disabled={loading} 
+                            disabled={loading}
                         >
                             {loading ? (
-                                <div className={classes.loader}></div> 
+                                <div className="loader"></div>
                             ) : (
                                 'Create Account'
                             )}

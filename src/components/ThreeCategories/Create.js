@@ -10,10 +10,11 @@ function Create() {
     const [formData, setFormData] = useState({
         teamName: "",
         teamLogo: null,
-        teamlocation: "",
+        teamlocation: "placeholder",
         hasOwnGround: "",
         groundName: "",
         groundDescription: "",
+        maplink: "",
         groundImage: null,
         groundFee: "",
     });
@@ -22,8 +23,12 @@ function Create() {
     const [errors, setErrors] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
+    const [loading, setloading] = useState(false);
+
 
     const options = [
+        "Single End",
+        "Double End",
         "Drinking Water",
         "Changing Rooms",
         "Parking",
@@ -43,19 +48,24 @@ function Create() {
         "Sound System",
         "Fitness Center",
         "Storage Facilities",
-        "Refreshment Stalls",
     ];
 
     const toggleDropdown = () => setIsOpen((prev) => !prev);
 
     const handleOptionClick = (option) => {
+        // Update selected options
         setSelectedOptions((prev) => {
             if (prev.includes(option)) {
                 return prev.filter((item) => item !== option);
             }
             return [...prev, option];
         });
+
+        // Mark the field as touched once the user interacts
+        setTouched((prev) => ({ ...prev, selectedOptions: true }));
     };
+
+
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -72,35 +82,57 @@ function Create() {
         }));
     };
     const handleSelectChange = (e) => {
+        const { name, value } = e.target;
+
         setFormData((prev) => ({
             ...prev,
-            teamlocation: e.target.value,
+            [name]: value,
         }));
+
+        // Clear the error dynamically for teamlocation
+        if (name === "teamlocation" && value !== "placeholder") {
+            setErrors((prev) => {
+                const { teamlocation, ...rest } = prev; // Remove teamlocation error
+                return rest;
+            });
+        }
+
+        setTouched((prev) => ({ ...prev, [name]: true })); // Mark as touched
     };
     const handleBlur = (e) => {
         const { name } = e.target;
         setTouched((prev) => ({ ...prev, [name]: true }));
     };
     const handleselectBlur = (field) => {
-        setTouched((prev) => ({ ...prev, [field]: true }));
+        setTouched((prev) => ({
+            ...prev,
+            [field]: true,
+        }));
     };
 
     const validate = () => {
         const newErrors = {};
 
-        if (!formData.teamName.trim()) newErrors.teamName = "please enter your team name";
-        if (!formData.teamLogo) newErrors.teamLogo = "please upload your team logo";
-        if (!formData.teamlocation) newErrors.teamlocation = "please select location";
-        if (!formData.hasOwnGround) newErrors.hasOwnGround = "please select your answer";
+        if (!formData.teamName.trim()) newErrors.teamName = "Please enter your team name";
+        if (!formData.teamLogo) newErrors.teamLogo = "Please upload your team logo";
+        if (formData.teamlocation === "placeholder") {
+            newErrors.teamlocation = "Please select a location";
+        }
+        if (!formData.hasOwnGround) newErrors.hasOwnGround = "Please select your answer";
 
         if (formData.hasOwnGround === "Yes") {
             if (!formData.groundName.trim())
-                newErrors.groundName = "please enter ground name";
+                newErrors.groundName = "Please enter ground name";
             if (!formData.groundDescription.trim())
-                newErrors.groundDescription = "please describe your ground";
-            if (!formData.groundImage) newErrors.groundImage = "please upload your ground image";
+                newErrors.groundDescription = "Please describe your ground";
+            if (!formData.maplink.trim())
+                newErrors.maplink = "Please provide your ground location";
+            if (!formData.groundImage) newErrors.groundImage = "Please upload your ground image";
+            if (touched.selectedOptions && selectedOptions.length === 0) {
+                newErrors.selectedOptions = "Please select at least one ground facility";
+            }
             if (!formData.groundFee || isNaN(formData.groundFee))
-                newErrors.groundFee = "please enter your ground fee";
+                newErrors.groundFee = "Please enter your ground fee";
         }
 
         setErrors(newErrors);
@@ -146,6 +178,9 @@ function Create() {
             if (formData.groundDescription) {
                 data.append("description", formData.groundDescription);
             }
+            if (formData.maplink) {
+                data.append("groundMaplink", formData.maplink);
+            }
             if (formData.groundImage) {
                 data.append("groundImage", formData.groundImage);
             }
@@ -153,9 +188,10 @@ function Create() {
                 data.append("groundFee", formData.groundFee);
             }
 
+            console.log("Selected options:", selectedOptions);
             if (hasOwnGroundBoolean && selectedOptions.length > 0) {
                 selectedOptions.forEach((option) => {
-                    data.append("facilities", option); // Use "facilities" as the key
+                    data.append("facilities[]", option); // Use "facilities[]" for array
                 });
             }
 
@@ -163,6 +199,7 @@ function Create() {
 
         // Submit data to the backend
         try {
+            setloading(true)
             const response = await TeamCreation(data);
             console.log("Form submitted successfully:", response.data);
 
@@ -180,6 +217,9 @@ function Create() {
             // Optional: provide error feedback to the user
             // alert("An error occurred while submitting the form. Please try again.");
         }
+        finally {
+            setloading(false);
+        }
     };
 
 
@@ -194,8 +234,9 @@ function Create() {
 
                 <h2 className={classes.ctheader}>Create Your Team</h2>
 
-                <div className={classes.createform}>
-                    <form onSubmit={handleSubmit}>
+
+                <form onSubmit={handleSubmit}>
+                    <div className={classes.createform}>
                         <div className={classes.row}>
                             {/* Team Name */}
                             <div className={classes.inputcon}>
@@ -238,7 +279,7 @@ function Create() {
                                     onBlur={() => handleselectBlur("teamlocation")}
                                     required
                                 >
-                                    <option value="" disabled>
+                                    <option value="placeholder" disabled>
                                         Select a location
                                     </option>
                                     <option value="Tirupur">Tirupur</option>
@@ -329,17 +370,29 @@ function Create() {
                                         <p className={classes.error}>{errors.groundDescription}</p>
                                     )}
                                 </div>
-
+                                <div className={classes.inputcon}>
+                                    <label>Paste your ground location from google map *</label>
+                                    <textarea
+                                        className={classes.txtareaml}
+                                        name="maplink"
+                                        value={formData.maplink}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    {touched.maplink && errors.maplink && (
+                                        <p className={classes.error}>{errors.maplink}</p>
+                                    )}
+                                </div>
                                 <div className={classes.row}>
                                     <div className={classes.inputcon}>
-                                        <label>Ground Facilities</label>
+                                        <label>Ground Facilities *</label>
                                         <div
-                                            className={classes.dropdownTrigger} // Added className
+                                            className={classes.dropdownTrigger}
                                             onClick={toggleDropdown}
                                         >
-                                            {selectedOptions.length === 0
-                                                ? "Select Facilities"
-                                                : selectedOptions.join(", ")}
+                                            {selectedOptions.length === 0 && touched.selectedOptions
+                                                ? "Select Facilities" // Placeholder text when no options are selected
+                                                : selectedOptions.join(", ")} {/* Show selected options */}
                                         </div>
                                         {isOpen && (
                                             <div className={classes.dropdownMenu}>
@@ -348,16 +401,18 @@ function Create() {
                                                         <input
                                                             type="checkbox"
                                                             checked={selectedOptions.includes(option)}
-                                                            onChange={() => handleOptionClick(option)}
+                                                            onChange={() => handleOptionClick(option)} // Update selection
                                                         />
                                                         {option}
                                                     </label>
                                                 ))}
                                             </div>
                                         )}
-
+                                        {/* Show error message when touched and validation fails */}
+                                        {touched.selectedOptions && errors.selectedOptions && (
+                                            <p className={classes.error}>{errors.selectedOptions}</p>
+                                        )}
                                     </div>
-
 
 
 
@@ -381,12 +436,18 @@ function Create() {
                         )}
 
                         <button type="submit" className={classes.btn}>
-                            Submit
+                            {loading ? (
+                                <div className="loader"></div>
+                            )
+                                : (
+                                    "Submit"
+                                )}
                         </button>
-                    </form>
-                </div>
-
+                    </div>
+                </form>
             </div>
+
+
         </>
     );
 }

@@ -109,7 +109,7 @@ function Login() {
                             <a>Forgot Password</a>
                             <button style={{ marginTop: "20px" }} className="ipbtn" onClick={handleSubmit}>
                                 {loading ? (
-                                    <div className={classes.loader}></div>
+                                    <div className="loader"></div>
                                 ) : (
                                     'Log In'
                                 )}

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as classes from './elements.module.scss'
 
-const Customloader = ({ message = "Loading..." }) => {
+const Customloader = ({ message = "Just a Moment" }) => {
     return (
         <div className={classes.loaderContainer}>
             <div className={classes.spinner}></div>

@@ -24,7 +24,7 @@ function Home() {
                             <p>Create Team</p>
                             <h3>Unleash Your Squad – Form the Ultimate Team!</h3>
                             <button onClick={() => {
-                                navigate('/create-team')
+                                navigate('/my-team/')
                             }}>Create</button>
                         </div>
                         <img src="https://th.bing.com/th/id/R.75b29478422fe01ed321d2afb8db3c1b?rik=uVu1pjeCcgyrdA&riu=http%3a%2f%2fi.nextmedia.com.au%2fNews%2fGettyImages-1588583.jpg&ehk=aR38PClS5EOTTNSmoMf3Ig7T%2bPrQSDPp4EP%2fbZPkcvE%3d&risl=&pid=ImgRaw&r=0" />

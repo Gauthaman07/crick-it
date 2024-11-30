@@ -4,6 +4,8 @@ import { FaMapMarkerAlt, FaClipboardList } from 'react-icons/fa';
 import { fetchGrounds } from '../../services/services';
 import Customloader from '../Elements/Customloader';
 import { navigate } from 'gatsby';
+import { IoLocationOutline } from "react-icons/io5";
+
 
 function Matches() {
     // const groundsData = [
@@ -178,6 +180,7 @@ function Matches() {
                                 <p>
                                     <FaClipboardList /> {ground.facilities?.join(', ') || 'No facilities listed'}
                                 </p>
+                                <a href={ground.groundMaplink} target="_blank" rel="noopener noreferrer"><IoLocationOutline style={{ width: "20px", height: "20px" }} /> Get Directions</a>
                                 <p>₹{ground.fee || 'Not Specified'}</p>
                                 <button
                                     onClick={() => handleBookClick(ground)}
