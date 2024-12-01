@@ -26,6 +26,8 @@ function Matches() {
     const [location, setLocation] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [selectedCity, setSelectedCity] = useState('Tirupur');
+
 
     // Open modal and set the selected ground when "Book" is clicked
     const handleBookClick = (ground) => {
@@ -33,18 +35,13 @@ function Matches() {
         setShowModal(true);
     };
 
+    const locations = ['Tirupur', 'Coimbatore', 'Chennai', 'Salem', 'Dindigul']; // Example locations
 
     useEffect(() => {
-        const savedLocation = localStorage.getItem('selectedCity');
-
-        if (savedLocation) {
-            setLocation(savedLocation);
-            fetchGroundsForLocation(savedLocation);
-        } else {
-            setError('Please select a location first.');
-            setLoading(false);
+        if (selectedCity) {
+            fetchGroundsForLocation(selectedCity);
         }
-    }, []);
+    }, [selectedCity]);
 
     const fetchGroundsForLocation = async (location) => {
         try {
@@ -53,14 +50,14 @@ function Matches() {
             const response = await fetchGrounds(location);
             console.log('API Response:', response.data); // Debugging: Log API response
 
-            if (response.data?.grounds && response.data.grounds.length > 0 || response.data?.otherGrounds && response.data.otherGrounds.length > 0) {
+            if (
+                (response.data?.grounds && response.data.grounds.length > 0) ||
+                (response.data?.otherGrounds && response.data.otherGrounds.length > 0)
+            ) {
                 setGroundsData(response.data.grounds || response.data.otherGrounds);
             } else {
                 setGroundsData([]);
                 setError('No grounds available for the selected location.');
-            }
-            if (response.data?.yourGround && response.data.yourGround.length > 0) {
-                setmyGround(response.data.yourGround);
             }
         } catch (err) {
             console.error('API Error:', err); // Debugging: Log API errors
@@ -72,6 +69,9 @@ function Matches() {
     };
 
 
+    const handleLocationChange = (event) => {
+        setSelectedCity(event.target.value);
+    };
     // Confirm booking and save to local storage
     const handleBookingConfirm = () => {
         if (selectedDate && selectedTime) {
@@ -106,7 +106,7 @@ function Matches() {
                     </div>
                 </div>
             );
-        } else {
+        } else if (error === "User has not created a team yet.") {
             return (
                 <div className="error-container">
                     <div className="error-message">
@@ -157,12 +157,30 @@ function Matches() {
             </div> */}
 
 
-            <h2 className={classes.title}>Book a Ground for Your Game !</h2>
+            {/* <h2 className={classes.title}>Book a Ground for Your Game !</h2> */}
 
             {/* Available Grounds List */}
 
 
-
+            <div className={classes.locationSelector}>
+                <p>{`${groundsData.length} Grounds Available in `}</p>
+                {/* <label htmlFor="location">Select Location:</label> */}
+                <select
+                    id="location"
+                    value={selectedCity}
+                    onChange={handleLocationChange}
+                    className={classes.locationst}
+                >
+                    <option value="" disabled>
+                        -- Select a City --
+                    </option>
+                    {locations.map((location) => (
+                        <option key={location} value={location}>
+                            {location}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
             <div className={classes.groundsList}>
                 {groundsData.length > 0 ? (
@@ -170,7 +188,7 @@ function Matches() {
                         <div key={ground._id} className={classes.groundCard}>
                             <div className={classes.imageContainer}>
                                 <img
-                                    src={ground.image || '/default-image.jpg'} // Use the ground image
+                                    src={ground.image || '/default-image.jpg'}
                                     alt={ground.groundName || 'Ground'}
                                     className={classes.groundImage}
                                 />
@@ -178,9 +196,17 @@ function Matches() {
                             <div className={classes.detailsContainer}>
                                 <h3 className={classes.groundName}>{ground.groundName || 'Ground'}</h3>
                                 <p>
-                                    <FaClipboardList /> {ground.facilities?.join(', ') || 'No facilities listed'}
+                                    <FaClipboardList />{' '}
+                                    {ground.facilities?.join(', ') || 'No facilities listed'}
                                 </p>
-                                <a href={ground.groundMaplink} target="_blank" rel="noopener noreferrer"><IoLocationOutline style={{ width: "20px", height: "20px" }} /> Get Directions</a>
+                                <a
+                                    href={ground.groundMaplink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <IoLocationOutline style={{ width: '20px', height: '20px' }} />{' '}
+                                    Get Directions
+                                </a>
                                 <p>₹{ground.fee || 'Not Specified'}</p>
                                 <button
                                     onClick={() => handleBookClick(ground)}
@@ -192,7 +218,15 @@ function Matches() {
                         </div>
                     ))
                 ) : (
-                    <p>No grounds available for the selected location.</p>
+                    <>
+                        <div className="error-container">
+                            <div className="error-message">
+                                <p>No grounds available for the selected location
+
+                                </p>
+                            </div>
+                        </div>
+                    </>
                 )}
             </div>
 
