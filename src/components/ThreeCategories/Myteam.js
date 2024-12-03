@@ -49,7 +49,7 @@ const Myteam = () => {
     }
 
 
-    // Render team details if available
+ 
     if (team) {
         return (
             <div className='mainsec'>
@@ -63,7 +63,7 @@ const Myteam = () => {
         );
     }
 
-    // Render the "Create Team" form if no team exists
+
     return <Create />;
 };
 

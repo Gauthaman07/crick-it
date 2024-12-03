@@ -191,20 +191,19 @@ function Create() {
             console.log("Selected options:", selectedOptions);
             if (hasOwnGroundBoolean && selectedOptions.length > 0) {
                 selectedOptions.forEach((option) => {
-                    data.append("facilities[]", option); // Use "facilities[]" for array
+                    data.append("facilities[]", option); 
                 });
             }
 
         }
 
-        // Submit data to the backend
+    
         try {
             setloading(true)
             const response = await TeamCreation(data);
             console.log("Form submitted successfully:", response.data);
 
-            // Optional: reset form or provide feedback to the user
-            // resetForm();
+        
             showToast("success", "Team created successfully!");
             setTimeout(() => {
                 if (typeof window !== "undefined") {
@@ -214,7 +213,7 @@ function Create() {
         } catch (error) {
             console.error("Error submitting form:", error);
             showToast("error", "An error occurred while submitting the form. Please try again.");
-            // Optional: provide error feedback to the user
+    
             // alert("An error occurred while submitting the form. Please try again.");
         }
         finally {
@@ -391,8 +390,8 @@ function Create() {
                                             onClick={toggleDropdown}
                                         >
                                             {selectedOptions.length === 0 && touched.selectedOptions
-                                                ? "Select Facilities" // Placeholder text when no options are selected
-                                                : selectedOptions.join(", ")} {/* Show selected options */}
+                                                ? "Select Facilities" 
+                                                : selectedOptions.join(", ")} 
                                         </div>
                                         {isOpen && (
                                             <div className={classes.dropdownMenu}>
@@ -408,7 +407,7 @@ function Create() {
                                                 ))}
                                             </div>
                                         )}
-                                        {/* Show error message when touched and validation fails */}
+                                      
                                         {touched.selectedOptions && errors.selectedOptions && (
                                             <p className={classes.error}>{errors.selectedOptions}</p>
                                         )}

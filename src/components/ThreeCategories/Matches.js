@@ -29,13 +29,13 @@ function Matches() {
     const [selectedCity, setSelectedCity] = useState('Tirupur');
 
 
-    // Open modal and set the selected ground when "Book" is clicked
+   
     const handleBookClick = (ground) => {
         setSelectedGround(ground);
         setShowModal(true);
     };
 
-    const locations = ['Tirupur', 'Coimbatore', 'Chennai', 'Salem', 'Dindigul']; // Example locations
+    const locations = ['Tirupur', 'Coimbatore', 'Chennai', 'Salem', 'Dindigul']; 
 
     useEffect(() => {
         if (selectedCity) {
@@ -46,9 +46,9 @@ function Matches() {
     const fetchGroundsForLocation = async (location) => {
         try {
             setLoading(true);
-            setError(''); // Reset error before API call
+            setError(''); 
             const response = await fetchGrounds(location);
-            console.log('API Response:', response.data); // Debugging: Log API response
+            console.log('API Response:', response.data); 
 
             if (
                 (response.data?.grounds && response.data.grounds.length > 0) ||
@@ -60,11 +60,11 @@ function Matches() {
                 setError('No grounds available for the selected location.');
             }
         } catch (err) {
-            console.error('API Error:', err); // Debugging: Log API errors
+            console.error('API Error:', err); 
             setError(err.response?.data?.message || 'Failed to fetch grounds.');
             setGroundsData([]);
         } finally {
-            setLoading(false); // Ensure loading is stopped in all cases
+            setLoading(false); 
         }
     };
 
@@ -82,7 +82,7 @@ function Matches() {
             };
             localStorage.setItem('matchBooking', JSON.stringify(bookingDetails));
             alert("Booking confirmed and saved!");
-            setShowModal(false);  // Close modal after confirming
+            setShowModal(false);  
         } else {
             alert("Please select a date and time.");
         }
@@ -93,7 +93,7 @@ function Matches() {
     }
 
     if (error) {
-        // If there's an error
+     
         if (error === "You are not logged in. Please log in to continue.") {
             return (
                 <div className="error-container">
@@ -126,40 +126,12 @@ function Matches() {
         <div className={classes.bookingContainer}>
 
 
-            {/* <div className={classes.groundsList}>
-
-
-               
-                    <div  className={classes.groundCard}>
-                        <div className={classes.imageContainer}>
-                            <img
-                                src={myGround?.image } 
-                                alt={myGround?.groundName || 'Ground'}
-                                className={classes.groundImage}
-                            />
-                        </div>
-                        <div className={classes.detailsContainer}>
-                            <h3 className={classes.groundName}>{myGround?.groundName || 'Ground'}</h3>
-                            <p>
-                                <FaClipboardList /> {myGround?.facilities?.join(', ') || 'No facilities listed'}
-                            </p>
-                            <p>₹{myGround?.fee || 'Not Specified'}</p>
-                            <button
-                                onClick={() => handleBookClick(myGround)}
-                                className={classes.bookButton}
-                            >
-                                Book Now
-                            </button>
-                        </div>
-                    </div>
-            
-
-            </div> */}
+           
 
 
             {/* <h2 className={classes.title}>Book a Ground for Your Game !</h2> */}
 
-            {/* Available Grounds List */}
+          
 
 
             <div className={classes.locationSelector}>
