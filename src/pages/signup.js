@@ -84,7 +84,6 @@ function SignupForm() {
                 navigate('/login');
             }, 3000);
 
-            // Reset form fields
             setmobile('');
             setEmail('');
             setPassword('');
@@ -96,7 +95,7 @@ function SignupForm() {
                 err.response?.data?.message || 'Failed to create account. Please try again.'
             );
         } finally {
-            setLoading(false); // Stop loading
+            setLoading(false);
         }
     };
 
