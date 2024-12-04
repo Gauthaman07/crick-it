@@ -7,13 +7,14 @@ import { navigate } from 'gatsby';
 
 function SignupForm() {
 
-
+    const [mobile, setmobile] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     // Validation error states
+    const [mobileError, setmobileError] = useState(null);
     const [emailError, setEmailError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
     const [confirmPasswordError, setConfirmPasswordError] = useState(null);
@@ -24,6 +25,7 @@ function SignupForm() {
         let isValid = true;
 
         // Reset previous errors
+        setmobileError(null);
         setEmailError(null);
         setPasswordError(null);
         setConfirmPasswordError(null);
@@ -35,7 +37,13 @@ function SignupForm() {
             setEmailError("Enter a valid email address.");
             isValid = false;
         }
-
+        if (!mobile) {
+            setmobileError("Mobile Number is required.");
+            isValid = false;
+        } else if (!/^[6-9]\d{9}$/.test(mobile)) {
+            setmobileError("Enter a valid mobile number.");
+            isValid = false;
+        }
         if (!password) {
             setPasswordError("Password is required.");
             isValid = false;
@@ -67,7 +75,7 @@ function SignupForm() {
             setLoading(true); // Start loading
 
             // Call the signup API
-            const signupResponse = await Signup({ email, password, confirmPassword });
+            const signupResponse = await Signup({ mobile, email, password, confirmPassword });
 
             showToast('success', 'Account created successfully! Redirecting to login...');
 
@@ -77,6 +85,7 @@ function SignupForm() {
             }, 3000);
 
             // Reset form fields
+            setmobile('');
             setEmail('');
             setPassword('');
             setConfirmPassword('');
@@ -99,10 +108,20 @@ function SignupForm() {
                     <div className={classes.formcon}>
                         <h1>Create Your Account</h1>
                         <div className={classes.inputcon}>
+                            <label className="labeltxt">Mobile Number</label>
+                            <input
+                                type="number"
+                                placeholder="mobile number"
+                                value={mobile}
+                                onChange={(e) => setmobile(e.target.value)}
+                            />
+                            {mobileError && <p style={{ color: "red", margin: 0, paddingTop: "10px" }}>{mobileError}</p>}
+                        </div>
+                        <div className={classes.inputcon}>
                             <label className="labeltxt">Email</label>
                             <input
                                 type="text"
-                                placeholder="Email"
+                                placeholder="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
@@ -112,7 +131,7 @@ function SignupForm() {
                             <label className="labeltxt">Password</label>
                             <input
                                 type="password"
-                                placeholder="Password"
+                                placeholder="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
@@ -122,7 +141,7 @@ function SignupForm() {
                             <label className="labeltxt">Confirm Password</label>
                             <input
                                 type="password"
-                                placeholder="Confirm Password"
+                                placeholder="confirm password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />

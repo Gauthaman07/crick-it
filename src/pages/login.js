@@ -14,7 +14,7 @@ function Login() {
     const [passwordError, setPasswordError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    // Validate fields before submitting
+  
     const validateFields = () => {
         let isValid = true;
 
@@ -37,23 +37,23 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate fields before proceeding
+      
         if (!validateFields()) {
-            return; // Exit if validation fails
+            return; 
         }
 
         try {
             setLoading(true);
-            // Step 1: Attempt login
+           
             const loginResponse = await SignIn({
-                email,
+                emailOrMobile: email,
                 password,
             });
 
 
-            // Check if the response contains a token
+        
             if (loginResponse.data && loginResponse.data.token) {
-                // Step 2: Show success toast and store token in cookie
+              
                 showToast("success", "Login successful!");
                 setCookieData('authO_tk', loginResponse.data.token);  // Store token in cookie
 
@@ -66,12 +66,12 @@ function Login() {
                 showToast("error", "Invalid credentials, please try again.");
             }
         } catch (err) {
-            // Handle error (network error, etc.)
+           
             console.error("Error during login:", err.response?.data || err.message);
             showToast("error", err.response?.data?.message || "Something went wrong. Please try again.");
         }
         finally {
-            setLoading(false); // Stop loading
+            setLoading(false); 
         }
     };
 
@@ -87,10 +87,10 @@ function Login() {
                         <div className={classes.formcon}>
                             <h1>Login or Create Your Account</h1>
                             <div className={classes.inputcon}>
-                                <label className="labeltxt">Email</label>
+                                <label className="labeltxt">Email / Mobile Number</label>
                                 <input
                                     type="text"
-                                    placeholder="Email"
+                                    placeholder="email or phone"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
@@ -100,7 +100,7 @@ function Login() {
                                 <label className="labeltxt">Password</label>
                                 <input
                                     type="password"
-                                    placeholder="Password"
+                                    placeholder="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
