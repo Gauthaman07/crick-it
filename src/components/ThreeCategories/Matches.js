@@ -68,12 +68,15 @@ function Matches() {
     const handleLocationChange = (event) => {
         setSelectedCity(event.target.value);
     };
+ 
+
     const handleBookingConfirm = async () => {
         if (!selectedDate || !selectedTime) {
             alert("Please select both date and time.");
             return;
         }
 
+        // Check if teamId exists
         if (!teamId) {
             alert("No team found. Please create a team first.");
             navigate('/my-team');
@@ -82,26 +85,28 @@ function Matches() {
 
         try {
             const bookingData = {
-                bookedDate: selectedDate,
+                date: selectedDate,
                 timeSlot: selectedTime,
-                bookedByTeam: teamId,
-                groundId: selectedGround._id // Assuming ground has _id
+                team_id: teamId, // Changed to team_id to match backend expectation
+                ground_id: selectedGround._id // Changed to ground_id if that's what backend expects
             };
 
-            const response = await Bookground(bookingData);
+            console.log('Sending booking data:', bookingData); // Debug log
 
+            const response = await Bookground(bookingData);
+            
             if (response.data) {
                 alert("Booking confirmed successfully!");
                 setShowModal(false);
                 // Optionally refresh the grounds list
-                fetchGroundsForLocation(selectedCity);
+                // fetchGroundsForLocation(selectedCity);
             }
         } catch (error) {
             console.error('Booking error:', error);
             alert(error.response?.data?.message || "Failed to book ground. Please try again.");
         }
-
     };
+
 
     if (loading) {
         return <Customloader />

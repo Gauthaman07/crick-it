@@ -63,5 +63,15 @@ export const getProfiles = (location) => {
 
 
 export const Bookground = (data) => {
-    return axios.post("https://crikonnect-api-production.up.railway.app/api/ground/book", data)
-}
+    const AccessToken = getCookieData('authO_tk');
+    
+    return axios.post(
+        "https://crikonnect-api-production.up.railway.app/api/ground/book",
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${AccessToken}`,
+            },
+        }
+    );
+};
