@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import * as classes from './threecat.module.scss'
 import { FaMapMarkerAlt, FaClipboardList } from 'react-icons/fa';
-import { fetchGrounds } from '../../services/services';
+import { fetchGrounds, Bookground } from '../../services/services';
 import Customloader from '../Elements/Customloader';
 import { navigate } from 'gatsby';
 import { IoLocationOutline } from "react-icons/io5";
 
 
 function Matches() {
-    // const groundsData = [
-    //     { id: 1, name: "Tirupur Cricket Ground", location: "Tirupur", facilities: "Parking, Changing Rooms, Spectator Seating", fees: 2000, imageUrl: "https://th.bing.com/th/id/OIP.RuXG2qVx5hnhEU-ig0DDHgHaEK?w=307&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" },
-    //     { id: 2, name: "Coimbatore Sports Arena", location: "Coimbatore", facilities: "Floodlights, Parking, Canteen", fees: 2500, imageUrl: "https://th.bing.com/th/id/OIP.Q8i9LdUuD1HFjF94-kV-cQHaFj?w=220&h=183&c=7&r=0&o=5&dpr=1.3&pid=1.7" },
-    //     { id: 3, name: "Chennai Open Ground", location: "Chennai", facilities: "Restrooms, Parking, Seating", fees: 1800, imageUrl: "https://th.bing.com/th/id/OIP.IRRc2W5XkOEYdZ1ECPi06wHaEF?w=282&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" },
-    // ];
+
 
     const [selectedGround, setSelectedGround] = useState(null);
     const [selectedDate, setSelectedDate] = useState('');
@@ -28,14 +24,14 @@ function Matches() {
     const [error, setError] = useState('');
     const [selectedCity, setSelectedCity] = useState('Tirupur');
 
+    const teamId = localStorage.getItem('teamId');
 
-   
     const handleBookClick = (ground) => {
         setSelectedGround(ground);
         setShowModal(true);
     };
 
-    const locations = ['Tirupur', 'Coimbatore', 'Chennai', 'Salem', 'Dindigul']; 
+    const locations = ['Tirupur', 'Coimbatore', 'Chennai', 'Salem', 'Dindigul'];
 
     useEffect(() => {
         if (selectedCity) {
@@ -46,9 +42,9 @@ function Matches() {
     const fetchGroundsForLocation = async (location) => {
         try {
             setLoading(true);
-            setError(''); 
+            setError('');
             const response = await fetchGrounds(location);
-            console.log('API Response:', response.data); 
+            console.log('API Response:', response.data);
 
             if (
                 (response.data?.grounds && response.data.grounds.length > 0) ||
@@ -60,11 +56,11 @@ function Matches() {
                 setError('No grounds available for the selected location.');
             }
         } catch (err) {
-            console.error('API Error:', err); 
+            console.error('API Error:', err);
             setError(err.response?.data?.message || 'Failed to fetch grounds.');
             setGroundsData([]);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
@@ -72,20 +68,39 @@ function Matches() {
     const handleLocationChange = (event) => {
         setSelectedCity(event.target.value);
     };
-    // Confirm booking and save to local storage
-    const handleBookingConfirm = () => {
-        if (selectedDate && selectedTime) {
-            const bookingDetails = {
-                ground: selectedGround,
-                date: selectedDate,
-                time: selectedTime,
-            };
-            localStorage.setItem('matchBooking', JSON.stringify(bookingDetails));
-            alert("Booking confirmed and saved!");
-            setShowModal(false);  
-        } else {
-            alert("Please select a date and time.");
+    const handleBookingConfirm = async () => {
+        if (!selectedDate || !selectedTime) {
+            alert("Please select both date and time.");
+            return;
         }
+
+        if (!teamId) {
+            alert("No team found. Please create a team first.");
+            navigate('/my-team');
+            return;
+        }
+
+        try {
+            const bookingData = {
+                bookedDate: selectedDate,
+                timeSlot: selectedTime,
+                bookedByTeam: teamId,
+                groundId: selectedGround._id // Assuming ground has _id
+            };
+
+            const response = await Bookground(bookingData);
+
+            if (response.data) {
+                alert("Booking confirmed successfully!");
+                setShowModal(false);
+                // Optionally refresh the grounds list
+                fetchGroundsForLocation(selectedCity);
+            }
+        } catch (error) {
+            console.error('Booking error:', error);
+            alert(error.response?.data?.message || "Failed to book ground. Please try again.");
+        }
+
     };
 
     if (loading) {
@@ -93,7 +108,7 @@ function Matches() {
     }
 
     if (error) {
-     
+
         if (error === "You are not logged in. Please log in to continue.") {
             return (
                 <div className="error-container">
@@ -124,15 +139,6 @@ function Matches() {
 
     return (
         <div className={classes.bookingContainer}>
-
-
-           
-
-
-            {/* <h2 className={classes.title}>Book a Ground for Your Game !</h2> */}
-
-          
-
 
             <div className={classes.locationSelector}>
                 <p>{`${groundsData.length} Grounds Available in `}</p>
@@ -211,7 +217,7 @@ function Matches() {
                     <div className={classes.modalContent}>
                         <h3>Book {selectedGround.name}</h3>
 
-                        <div className={classes.inputGroup}>
+                        <div className={classes.inputcon}>
                             <label className="labeltxt">Date</label>
                             <input
                                 type="date"
@@ -221,14 +227,17 @@ function Matches() {
                             />
                         </div>
 
-                        <div className={classes.inputGroup}>
+                        <div className={classes.inputcon}>
                             <label className="labeltxt">Time Slot</label>
-                            <input
-                                type="time"
+                            <select
+                                className={classes.select}
                                 value={selectedTime}
                                 onChange={(e) => setSelectedTime(e.target.value)}
-                                className={classes.input}
-                            />
+                            >
+                                <option value="">Select Time Slot</option>
+                                <option value="morning">Morning</option>
+                                <option value="afternoon">Afternoon</option>
+                            </select>
                         </div>
 
                         <div className={classes.modalActions}>

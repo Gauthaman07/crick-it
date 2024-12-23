@@ -11,14 +11,14 @@ export const SignIn = (data) => {
 }
 
 export const TeamCreation = (data) => {
-    const AccessToken = getCookieData("authO_tk"); // Retrieve token from cookies
+    const AccessToken = getCookieData("authO_tk");
 
     return axios.post(
         "https://crikonnect-api-production.up.railway.app/api/team/create",
         data,
         {
             headers: {
-                Authorization: `Bearer ${AccessToken}`, // Include token in headers
+                Authorization: `Bearer ${AccessToken}`,
             },
         }
     );
@@ -48,3 +48,20 @@ export const fetchGrounds = (location) => {
         },
     });
 };
+
+
+export const getProfiles = (location) => {
+    const AccessToken = getCookieData('authO_tk');
+
+    return axios.get("https://crikonnect-api-production.up.railway.app/api/user/profile", {
+        params: { location },
+        headers: {
+            Authorization: `Bearer ${AccessToken}`,
+        },
+    });
+};
+
+
+export const Bookground = (data) => {
+    return axios.post("https://crikonnect-api-production.up.railway.app/api/ground/book", data)
+}

@@ -14,7 +14,7 @@ function Login() {
     const [passwordError, setPasswordError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-  
+
     const validateFields = () => {
         let isValid = true;
 
@@ -37,23 +37,23 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-      
+
         if (!validateFields()) {
-            return; 
+            return;
         }
 
         try {
             setLoading(true);
-           
+
             const loginResponse = await SignIn({
                 emailOrMobile: email,
                 password,
             });
 
 
-        
+
             if (loginResponse.data && loginResponse.data.token) {
-              
+
                 showToast("success", "Login successful!");
                 setCookieData('authO_tk', loginResponse.data.token);  // Store token in cookie
 
@@ -66,12 +66,12 @@ function Login() {
                 showToast("error", "Invalid credentials, please try again.");
             }
         } catch (err) {
-           
+
             console.error("Error during login:", err.response?.data || err.message);
             showToast("error", err.response?.data?.message || "Something went wrong. Please try again.");
         }
         finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
@@ -108,11 +108,13 @@ function Login() {
                             </div>
                             <a>Forgot Password</a>
                             <button style={{ marginTop: "20px" }} className="ipbtn" onClick={handleSubmit}>
-                                {loading ? (
-                                    <div className="loader"></div>
-                                ) : (
-                                    'Log In'
-                                )}
+                                <span>
+                                    {loading ? (
+                                        <div className="loader"></div>
+                                    ) : (
+                                        'Log In'
+                                    )}
+                                </span>
                             </button>
 
                             <p>Don't have an account? <a href='/signup/'>Sign-up</a></p>
