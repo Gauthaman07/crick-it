@@ -206,65 +206,68 @@ function Matches() {
 
         <>
             <div className='mainsec'>
-                {myGround && (
-                    <div className={classes.ownground}>
-                        {myGround?.pendingBookings?.length > 0 ? (
-                            <>
-                                <div className={classes.details}>
-                                    <p>{myGround.pendingBookings[0].teamName}</p>
-                                    <p>{myGround.pendingBookings[0].date}</p>
-                                    <p>{myGround.pendingBookings[0].timeSlot}</p>
-                                </div>
-                                <div className={classes.btncon}>
-                                    <button
-                                        onClick={() => {
-                                            // Debug log to check the entire booking object
-                                            console.log('Full booking object:', myGround.pendingBookings[0]);
+              
 
-                                            // Check what ID field is available
-                                            console.log('Possible IDs:', {
-                                                _id: myGround.pendingBookings[0]._id,
-                                                id: myGround.pendingBookings[0].id,
-                                                bookingId: myGround.pendingBookings[0].bookingId
-                                            });
+            {myGround && myGround?.pendingBookings?.length > 0 && (
+    <div className={classes.notificationPanel}>
+        <h2 className={classes.panelTitle}>Booking Requests</h2>
+        <div className={classes.notificationCard}>
+            <div className={classes.bookingDetails}>
+                <h3>{myGround.pendingBookings[0].teamName}</h3>
+                <p><strong>Date:</strong> {myGround.pendingBookings[0].date}</p>
+                <p><strong>Time Slot:</strong> {myGround.pendingBookings[0].timeSlot}</p>
+            </div>
+        </div>
+     
+        <div className={classes.btncon}>
+                    <button
+                        onClick={() => {
+                            // Debug log to check the entire booking object
+                            console.log('Full booking object:', myGround.pendingBookings[0]);
 
-                                            const bookingId = myGround.pendingBookings[0]._id ||
-                                                myGround.pendingBookings[0].id ||
-                                                myGround.pendingBookings[0].bookingId;
+                            // Check what ID field is available
+                            console.log('Possible IDs:', {
+                                _id: myGround.pendingBookings[0]._id,
+                                id: myGround.pendingBookings[0].id,
+                                bookingId: myGround.pendingBookings[0].bookingId
+                            });
 
-                                            if (!bookingId) {
-                                                alert('Booking ID not found!');
-                                                return;
-                                            }
+                            const bookingId = myGround.pendingBookings[0]._id ||
+                                myGround.pendingBookings[0].id ||
+                                myGround.pendingBookings[0].bookingId;
 
-                                            handleBookingAction(bookingId, 'booked');
-                                        }}
-                                    >
-                                        ACCEPT
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            const bookingId = myGround.pendingBookings[0]._id ||
-                                                myGround.pendingBookings[0].id ||
-                                                myGround.pendingBookings[0].bookingId;
+                            if (!bookingId) {
+                                alert('Booking ID not found!');
+                                return;
+                            }
 
-                                            if (!bookingId) {
-                                                alert('Booking ID not found!');
-                                                return;
-                                            }
+                            handleBookingAction(bookingId, 'booked');
+                        }}
+                    >
+                        ACCEPT
+                    </button>
+                    <button
+                        onClick={() => {
+                            const bookingId = myGround.pendingBookings[0]._id ||
+                                myGround.pendingBookings[0].id ||
+                                myGround.pendingBookings[0].bookingId;
 
-                                            handleBookingAction(bookingId, 'rejected');
-                                        }}
-                                    >
-                                        REJECT
-                                    </button>
-                                </div>
-                            </>
-                        ) : (
-                            <p>No pending bookings at the moment.</p>
-                        )}
-                    </div>
-                )}
+                            if (!bookingId) {
+                                alert('Booking ID not found!');
+                                return;
+                            }
+
+                            handleBookingAction(bookingId, 'rejected');
+                        }}
+                    >
+                        REJECT
+                    </button>
+                </div>
+
+    </div>
+)}
+
+
 
 
                 {bookingStatus && bookingStatus.length > 0 && (
