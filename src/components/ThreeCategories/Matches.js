@@ -16,7 +16,7 @@ function Matches() {
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
     const [showModal, setShowModal] = useState(false);
-
+    const [teamid, setteamid] = useState();
 
     const [bookingStatus, setbookingStatus] = useState([]);
     const [groundsData, setGroundsData] = useState([]);
@@ -28,7 +28,14 @@ function Matches() {
     const [error, setError] = useState('');
     const [selectedCity, setSelectedCity] = useState('Tirupur');
 
-    const teamId = localStorage.getItem('teamId');
+
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const teamId = localStorage.getItem('teamId');
+            setteamid(teamId)
+        }
+    }, []);
 
     const handleBookClick = (ground) => {
         setSelectedGround(ground);
@@ -57,7 +64,7 @@ function Matches() {
                 setGroundsData(response.data.grounds || response.data.otherGrounds);
             }
             if (response.data?.yourGround) {
-                console.log('yourGround:', response.data.yourGround); // Debug log
+                console.log('yourGround:', response.data.yourGround);
                 if (Object.keys(response.data.yourGround).length > 0) {
                     setmyGround(response.data.yourGround); // Set valid yourGround data
                     console.log('myGround successfully set.');
@@ -95,7 +102,7 @@ function Matches() {
         }
 
         // Check if teamId exists
-        if (!teamId) {
+        if (!teamid) {
             alert("No team found. Please create a team first.");
             navigate('/my-team');
             return;
@@ -105,7 +112,7 @@ function Matches() {
             const bookingData = {
                 bookedDate: selectedDate,
                 timeSlot: selectedTime,
-                bookedByTeam: teamId, // Changed to team_id to match backend expectation
+                bookedByTeam: teamid, // Changed to team_id to match backend expectation
                 groundId: selectedGround._id // Changed to ground_id if that's what backend expects
             };
 
@@ -319,37 +326,37 @@ function Matches() {
                     </div>
 
                     <div className={classes.groundsList}>
-                {groundsData && groundsData.length > 0 ? (
-                    groundsData.map((ground) => (
-                        <div className={classes.gc} key={ground._id}>
-                            <div className={classes.groundCard}>
-                                <div className={classes.imageContainer}>
-                                    <img
-                                        src={ground.image || '/default-image.jpg'}
-                                        alt={ground.groundName || 'Ground'}
-                                        className={classes.groundImage}
-                                    />
-                                </div>
-                                <div className={classes.detailsContainer}>
-                                    <h3 className={classes.groundName}>{ground.groundName || 'Ground'}</h3>
-                                    <div className={classes.lctndt}>
-                                        <IoLocationOutline style={{ width: '24px', height: '24px' }} />
-                                        <a href={ground.groundMaplink} target="_blank" rel="noopener noreferrer">Get Directions</a>
+                        {groundsData && groundsData.length > 0 ? (
+                            groundsData.map((ground) => (
+                                <div className={classes.gc} key={ground._id}>
+                                    <div className={classes.groundCard}>
+                                        <div className={classes.imageContainer}>
+                                            <img
+                                                src={ground.image || '/default-image.jpg'}
+                                                alt={ground.groundName || 'Ground'}
+                                                className={classes.groundImage}
+                                            />
+                                        </div>
+                                        <div className={classes.detailsContainer}>
+                                            <h3 className={classes.groundName}>{ground.groundName || 'Ground'}</h3>
+                                            <div className={classes.lctndt}>
+                                                <IoLocationOutline style={{ width: '24px', height: '24px' }} />
+                                                <a href={ground.groundMaplink} target="_blank" rel="noopener noreferrer">Get Directions</a>
+                                            </div>
+                                            <p>₹{ground.fee || 'Not Specified'}</p>
+                                        </div>
                                     </div>
-                                    <p>₹{ground.fee || 'Not Specified'}</p>
+                                    <button onClick={() => handleBookClick(ground)} className={classes.bookButton}>Book Now</button>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="error-container">
+                                <div className="error-message">
+                                    <p>No grounds available for the selected location</p>
                                 </div>
                             </div>
-                            <button onClick={() => handleBookClick(ground)} className={classes.bookButton}>Book Now</button>
-                        </div>
-                    ))
-                ) : (
-                    <div className="error-container">
-                        <div className="error-message">
-                            <p>No grounds available for the selected location</p>
-                        </div>
+                        )}
                     </div>
-                )}
-            </div>
 
 
 
