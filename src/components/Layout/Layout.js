@@ -3,6 +3,7 @@ import Header from '../Header/Header'
 import Locationpop from '../Locationpop/Locationpop'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from '../Footer/Footer';
 
 
 function Layout({ children }) {
@@ -37,6 +38,8 @@ function Layout({ children }) {
                 draggable
                 theme="colored"
             />
+
+            <Footer />
         </>
     )
 }

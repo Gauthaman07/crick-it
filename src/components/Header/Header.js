@@ -7,7 +7,7 @@ import { getCookieData, deleteCookieData } from '../../utility/utility';
 import SubMenu from 'antd/es/menu/SubMenu';
 import { useDispatch, useSelector } from 'react-redux';  // Import Redux hooks
 import { fetchProfile, resetProfile } from '../../store/profileSlice';
-import Logo from '../../images/crickonnectlogo.png';
+import Logo from '../../images/ckwlogo.png';
 
 function Header({ location }) {
     const [visible, setVisible] = useState(false);
@@ -93,7 +93,7 @@ function Header({ location }) {
                 </div>
 
                 <div className={`onlyMob ${classes.mobnav}`}>
-                    <Button style={{ color: 'white', borderColor: 'none', backgroundColor: 'transparent' }} type="primary" icon={<MenuOutlined />} onClick={() => setVisible(true)} />
+                    <Button style={{ color: 'white', borderColor: 'none', backgroundColor: 'black' }} type="primary" icon={<MenuOutlined />} onClick={() => setVisible(true)} />
                     <Drawer
                         title="CricKOnnect"
                         placement="right"

@@ -1,44 +1,95 @@
-/* Loader container */
-.loaderContainer {
+/* From Uiverse.io by bociKond */ 
+.container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-    /* Light background */
-    text-align: center;
+    align-items: center;
+    height: 100vh; /* Full height viewport */
+    background-color: #f4f4f4; /* Optional: background color */
+    margin: 0; /* Remove default margin */
 }
 
-/* Spinner circle animation */
-.spinner {
-    border: 8px solid #f3f3f3;
-    /* Light grey background */
-    border-top: 8px solid #4cd137;
-    /* Blue spinner */
+.loader {
+    width: 44.8px;
+    height: 44.8px;
+    color: #c0392b;
+    position: relative;
+    background: radial-gradient(11.2px,currentColor 94%,#0000);
+  }
+  
+  .loader:before {
+    content: '';
+    position: absolute;
+    inset: 0;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-}
-
-/* Spin animation */
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
+    background: radial-gradient(10.08px at bottom right,#0000 94%,currentColor) top    left,
+            radial-gradient(10.08px at bottom left ,#0000 94%,currentColor) top    right,
+            radial-gradient(10.08px at top    right,#0000 94%,currentColor) bottom left,
+            radial-gradient(10.08px at top    left ,#0000 94%,currentColor) bottom right;
+    background-size: 22.4px 22.4px;
+    background-repeat: no-repeat;
+    animation: loader 1.5s infinite cubic-bezier(0.3,1,0,1);
+  }
+  
+  @keyframes loader {
+    33% {
+      inset: -11.2px;
+      transform: rotate(0deg);
     }
-
+  
+    66% {
+      inset: -11.2px;
+      transform: rotate(90deg);
+    }
+  
     100% {
-        transform: rotate(360deg);
+      inset: 0;
+      transform: rotate(90deg);
     }
-}
+  }
 
-/* Loader message */
-.loaderMessage {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #4cd137;
-    font-family: "Playwrite HR Lijeva", cursive;
-    font-optical-sizing: auto;
-    font-weight: 700;
-}
+
+
+// /* Loader container */
+// .loaderContainer {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     height: 100vh;
+//     background-color: #f4f4f4;
+//     /* Light background */
+//     text-align: center;
+// }
+
+// /* Spinner circle animation */
+// .spinner {
+//     border: 8px solid #f3f3f3;
+//     /* Light grey background */
+//     border-top: 8px solid #4cd137;
+//     /* Blue spinner */
+//     border-radius: 50%;
+//     width: 50px;
+//     height: 50px;
+//     animation: spin 1s linear infinite;
+// }
+
+// /* Spin animation */
+// @keyframes spin {
+//     0% {
+//         transform: rotate(0deg);
+//     }
+
+//     100% {
+//         transform: rotate(360deg);
+//     }
+// }
+
+// /* Loader message */
+// .loaderMessage {
+//     margin-top: 20px;
+//     font-size: 18px;
+//     color: #4cd137;
+//     font-family: "Playwrite HR Lijeva", cursive;
+//     font-optical-sizing: auto;
+//     font-weight: 700;
+// }

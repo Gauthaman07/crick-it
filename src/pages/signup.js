@@ -107,12 +107,16 @@ function SignupForm() {
                     <div className={classes.formcon}>
                         <h1>Create Your Account</h1>
                         <div className={classes.inputcon}>
-                            <label className="labeltxt">Mobile Number</label>
                             <input
-                                type="number"
+                                type="text"
                                 placeholder="mobile number"
                                 value={mobile}
-                                onChange={(e) => setmobile(e.target.value)}
+                                onChange={(e) => {
+                                    const input = e.target.value;
+                                    if (/^\d*$/.test(input) && input.length <= 10) {
+                                        setmobile(input);
+                                    }
+                                }}
                             />
                             {mobileError && <p style={{ color: "red", margin: 0, paddingTop: "10px" }}>{mobileError}</p>}
                         </div>

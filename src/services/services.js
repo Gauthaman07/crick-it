@@ -64,13 +64,32 @@ export const getProfiles = (location) => {
 
 export const Bookground = (data) => {
     const AccessToken = getCookieData('authO_tk');
-    
+
     return axios.post(
-        "https://crikonnect-api-production.up.railway.app/api/ground/book",
+        "https://crikonnect-api-production.up.railway.app/api/ground-booking/book",
         data,
         {
             headers: {
                 Authorization: `Bearer ${AccessToken}`,
+            },
+        }
+    );
+};
+
+
+export const updateBookingStatus = (data) => {
+    const AccessToken = getCookieData('authO_tk');
+    
+    // Log the request data
+    console.log('Sending update request:', data);
+    
+    return axios.post(
+        `https://crikonnect-api-production.up.railway.app/api/ground-booking/update-status/${data.bookingId}`,
+        { status: data.status },
+        {
+            headers: {
+                Authorization: `Bearer ${AccessToken}`,
+                'Content-Type': 'application/json'
             },
         }
     );
