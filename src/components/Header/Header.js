@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, navigate } from 'gatsby';
 import * as classes from './header.module.scss';
-import { Menu, Button, Drawer, Dropdown } from 'antd';
+import { Menu, Button, Drawer, Dropdown, Popover } from 'antd';
 import { MenuOutlined, DownOutlined } from '@ant-design/icons';
 import { getCookieData, deleteCookieData } from '../../utility/utility';
 import SubMenu from 'antd/es/menu/SubMenu';
@@ -49,7 +49,11 @@ function Header({ location }) {
 
     const menu = (
         <Menu>
-            <Menu.Item>
+            <Menu.Item
+            onClick={() => {
+                navigate('/myprofile/')
+            }}
+            >
                 My Profile
             </Menu.Item>
             <Menu.Item onClick={handleLogout}>
@@ -77,15 +81,15 @@ function Header({ location }) {
                         <Link to="/tournaments">Tournaments</Link>
 
                         {AccessToken ? (
-                            <Dropdown overlay={menu} trigger={['click']}>
-                                <a
-                                    style={{ cursor: "pointer" }}
-                                    className="ant-dropdown-link"
-                                    onClick={(e) => e.preventDefault()}
-                                >
-                                    Hello, {userDisplayName} <DownOutlined />
-                                </a>
-                            </Dropdown>
+                            <Popover content={menu} trigger="click" placement="bottomLeft">
+                            <a
+                                style={{ cursor: 'pointer' }}
+                                className="ant-dropdown-link"
+                                onClick={(e) => e.preventDefault()}
+                            >
+                                Hello, {userDisplayName} <DownOutlined style={{width:"14px", height:"20px"}}/>
+                            </a>
+                        </Popover>
                         ) : (
                             <Link to="/login">Login</Link>
                         )}

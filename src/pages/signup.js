@@ -7,17 +7,19 @@ import { navigate } from 'gatsby';
 
 function SignupForm() {
 
+    const [name, setname] = useState("");
     const [mobile, setmobile] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    // const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     // Validation error states
+    const [nameError, setnameError] = useState(null);
     const [mobileError, setmobileError] = useState(null);
     const [emailError, setEmailError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
-    const [confirmPasswordError, setConfirmPasswordError] = useState(null);
+    // const [confirmPasswordError, setConfirmPasswordError] = useState(null);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -25,11 +27,16 @@ function SignupForm() {
         let isValid = true;
 
         // Reset previous errors
+        setnameError(null);
         setmobileError(null);
         setEmailError(null);
         setPasswordError(null);
-        setConfirmPasswordError(null);
+        // setConfirmPasswordError(null);
 
+        if (!name) {
+            setEmailError("Name is required.");
+            isValid = false;
+        }
         if (!email) {
             setEmailError("Email is required.");
             isValid = false;
@@ -52,13 +59,13 @@ function SignupForm() {
             isValid = false;
         }
 
-        if (!confirmPassword) {
-            setConfirmPasswordError("Confirm Password is required.");
-            isValid = false;
-        } else if (password !== confirmPassword) {
-            setConfirmPasswordError("Passwords do not match.");
-            isValid = false;
-        }
+        // if (!confirmPassword) {
+        //     setConfirmPasswordError("Confirm Password is required.");
+        //     isValid = false;
+        // } else if (password !== confirmPassword) {
+        //     setConfirmPasswordError("Passwords do not match.");
+        //     isValid = false;
+        // }
 
         return isValid;
     };
@@ -75,7 +82,7 @@ function SignupForm() {
             setLoading(true); // Start loading
 
             // Call the signup API
-            const signupResponse = await Signup({ mobile, email, password, confirmPassword });
+            const signupResponse = await Signup({ name, mobile, email, password });
 
             showToast('success', 'Account created successfully! Redirecting to login...');
 
@@ -83,11 +90,11 @@ function SignupForm() {
             setTimeout(() => {
                 navigate('/login');
             }, 3000);
-
+            setname('');
             setmobile('');
             setEmail('');
             setPassword('');
-            setConfirmPassword('');
+            // setConfirmPassword('');
         } catch (err) {
             console.error('Error during signup:', err.response?.data || err.message);
             showToast(
@@ -107,6 +114,17 @@ function SignupForm() {
                     <div className={classes.formcon}>
                         <h1>Create Your Account</h1>
                         <div className={classes.inputcon}>
+                            <label className="labeltxt">Name</label>
+                            <input
+                                type="text"
+                                placeholder="name"
+                                value={name}
+                                onChange={(e) => { setname(e.target.value) }}
+                            />
+                            {mobileError && <p style={{ color: "red", margin: 0, paddingTop: "10px" }}>{mobileError}</p>}
+                        </div>
+                        <div className={classes.inputcon}>
+                            <label className="labeltxt">Mobile</label>
                             <input
                                 type="text"
                                 placeholder="mobile number"
@@ -140,7 +158,7 @@ function SignupForm() {
                             />
                             {passwordError && <p style={{ color: "red", margin: 0, paddingTop: "10px" }}>{passwordError}</p>}
                         </div>
-                        <div className={classes.inputcon}>
+                        {/* <div className={classes.inputcon}>
                             <label className="labeltxt">Confirm Password</label>
                             <input
                                 type="password"
@@ -149,7 +167,7 @@ function SignupForm() {
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />
                             {confirmPasswordError && <p style={{ color: "red", margin: 0, paddingTop: "10px" }}>{confirmPasswordError}</p>}
-                        </div>
+                        </div> */}
                         <button
                             type="submit"
                             onClick={handleSubmit}

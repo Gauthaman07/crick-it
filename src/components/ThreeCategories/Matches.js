@@ -56,29 +56,26 @@ function Matches() {
             setError('');
             const response = await fetchGrounds(location);
             console.log('API Response:', response.data);
-
-            if (
-                (response.data?.grounds && response.data.grounds.length > 0) ||
-                (response.data?.otherGrounds && response.data.otherGrounds.length > 0)
-            ) {
-                setGroundsData(response.data.grounds || response.data.otherGrounds);
-            }
-            if (response.data?.yourGround) {
-                console.log('yourGround:', response.data.yourGround);
-                if (Object.keys(response.data.yourGround).length > 0) {
-                    setmyGround(response.data.yourGround); // Set valid yourGround data
-                    console.log('myGround successfully set.');
-                } else {
-                    console.log('yourGround is empty.');
-                }
-            }
-            if ((response.data?.userBookings && response.data.userBookings.length > 0)
-            ) {
-                setbookingStatus(response.data.userBookings)
-            }
-            else {
-                // setGroundsData([]);
+    
+            // Check if the user has grounds
+            if (response.data?.grounds && response.data.grounds.length > 0) {
+                console.log('Grounds found:', response.data.grounds);
+                setGroundsData(response.data.grounds); // Set grounds for users without their own ground
+            } else if (response.data?.yourGround) {
+                console.log('Your Ground found:', response.data.yourGround);
+                setmyGround(response.data.yourGround); // Set the user's own ground
+                setGroundsData(response.data.otherGrounds || []); // Set other grounds for users with their own ground
+            } else if (response.data?.otherGrounds && response.data.otherGrounds.length > 0) {
+                console.log('Other grounds found:', response.data.otherGrounds);
+                setGroundsData(response.data.otherGrounds); // Set other grounds if no user grounds
+            } else {
+                setGroundsData([]); // Clear grounds data if none found
                 setError('No grounds available for the selected location.');
+            }
+    
+            // Handle user bookings
+            if (response.data?.userBookings && response.data.userBookings.length > 0) {
+                setbookingStatus(response.data.userBookings);
             }
         } catch (err) {
             console.error('API Error:', err);
@@ -89,9 +86,9 @@ function Matches() {
         }
     };
 
-
     const handleLocationChange = (event) => {
         setSelectedCity(event.target.value);
+        fetchGroundsForLocation(event.target.value);
     };
 
 
@@ -206,66 +203,60 @@ function Matches() {
 
         <>
             <div className='mainsec'>
-              
 
-            {myGround && myGround?.pendingBookings?.length > 0 && (
-    <div className={classes.notificationPanel}>
-        <h2 className={classes.panelTitle}>Booking Requests</h2>
-        <div className={classes.notificationCard}>
-            <div className={classes.bookingDetails}>
-                <h3>{myGround.pendingBookings[0].teamName}</h3>
-                <p><strong>Date:</strong> {myGround.pendingBookings[0].date}</p>
-                <p><strong>Time Slot:</strong> {myGround.pendingBookings[0].timeSlot}</p>
-            </div>
-        </div>
-     
-        <div className={classes.btncon}>
-                    <button
-                        onClick={() => {
-                            // Debug log to check the entire booking object
-                            console.log('Full booking object:', myGround.pendingBookings[0]);
 
-                            // Check what ID field is available
-                            console.log('Possible IDs:', {
-                                _id: myGround.pendingBookings[0]._id,
-                                id: myGround.pendingBookings[0].id,
-                                bookingId: myGround.pendingBookings[0].bookingId
-                            });
+                {myGround && myGround?.pendingBookings?.length > 0 && (
+                    <div className={classes.notificationPanel}>
+                        <h2 className={classes.panelTitle}>Booking Requests</h2>
+                        <div className={classes.wholecon}>
+                            <div className={classes.notificationCard}>
+                                <div className={classes.bookingDetails}>
+                                    <h3>{myGround.pendingBookings[0].teamName}</h3>
+                                    <p><strong>Date:</strong> {myGround.pendingBookings[0].date}</p>
+                                    <p><strong>Time Slot:</strong> {myGround.pendingBookings[0].timeSlot}</p>
+                                </div>
+                            </div>
 
-                            const bookingId = myGround.pendingBookings[0]._id ||
-                                myGround.pendingBookings[0].id ||
-                                myGround.pendingBookings[0].bookingId;
+                            <div className={classes.btncon}>
+                                <button
+                                    style={{ color: "green" }}
+                                    onClick={() => {
 
-                            if (!bookingId) {
-                                alert('Booking ID not found!');
-                                return;
-                            }
+                                        const bookingId = myGround.pendingBookings[0]._id ||
+                                            myGround.pendingBookings[0].id ||
+                                            myGround.pendingBookings[0].bookingId;
 
-                            handleBookingAction(bookingId, 'booked');
-                        }}
-                    >
-                        ACCEPT
-                    </button>
-                    <button
-                        onClick={() => {
-                            const bookingId = myGround.pendingBookings[0]._id ||
-                                myGround.pendingBookings[0].id ||
-                                myGround.pendingBookings[0].bookingId;
+                                        if (!bookingId) {
+                                            alert('Booking ID not found!');
+                                            return;
+                                        }
 
-                            if (!bookingId) {
-                                alert('Booking ID not found!');
-                                return;
-                            }
+                                        handleBookingAction(bookingId, 'booked');
+                                    }}
+                                >
+                                    ✔
+                                </button>
+                                <button
+                                    style={{ color: "red" }}
+                                    onClick={() => {
+                                        const bookingId = myGround.pendingBookings[0]._id ||
+                                            myGround.pendingBookings[0].id ||
+                                            myGround.pendingBookings[0].bookingId;
 
-                            handleBookingAction(bookingId, 'rejected');
-                        }}
-                    >
-                        REJECT
-                    </button>
-                </div>
+                                        if (!bookingId) {
+                                            alert('Booking ID not found!');
+                                            return;
+                                        }
 
-    </div>
-)}
+                                        handleBookingAction(bookingId, 'rejected');
+                                    }}
+                                >
+                                    ✘
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
 
 
@@ -276,7 +267,7 @@ function Matches() {
 
                         {bookingStatus.map((booking, index) => (
                             <div key={index} className={classes.notificationCard}>
-                                <div className={classes.bookingDetails}>
+                                <div className={classes.yrbookingDetails}>
                                     <h3>{booking.groundName}</h3>
                                     <p>
                                         {booking.date}
@@ -330,28 +321,43 @@ function Matches() {
 
                     <div className={classes.groundsList}>
                         {groundsData && groundsData.length > 0 ? (
-                            groundsData.map((ground) => (
-                                <div className={classes.gc} key={ground._id}>
-                                    <div className={classes.groundCard}>
-                                        <div className={classes.imageContainer}>
-                                            <img
-                                                src={ground.image || '/default-image.jpg'}
-                                                alt={ground.groundName || 'Ground'}
-                                                className={classes.groundImage}
-                                            />
-                                        </div>
-                                        <div className={classes.detailsContainer}>
-                                            <h3 className={classes.groundName}>{ground.groundName || 'Ground'}</h3>
-                                            <div className={classes.lctndt}>
-                                                <IoLocationOutline style={{ width: '24px', height: '24px' }} />
-                                                <a href={ground.groundMaplink} target="_blank" rel="noopener noreferrer">Get Directions</a>
+                            groundsData.map((ground) => {
+                                // Check if the current ground has been booked
+                                const isAlreadyBooked = bookingStatus.some(
+                                    (booking) => booking.groundName === ground.groundName && booking.status === 'booked'
+                                );
+
+                                return (
+                                    <div className={classes.gc} key={ground._id}>
+                                        <div className={classes.groundCard}>
+                                            <div className={classes.imageContainer}>
+                                                <img
+                                                    src={ground.image || '/default-image.jpg'}
+                                                    alt={ground.groundName || 'Ground'}
+                                                    className={classes.groundImage}
+                                                />
                                             </div>
-                                            <p>₹{ground.fee || 'Not Specified'}</p>
+                                            <div className={classes.detailsContainer}>
+                                                <h3 className={classes.groundName}>{ground.groundName || 'Ground'}</h3>
+                                                <div className={classes.lctndt}>
+                                                    <IoLocationOutline style={{ width: '24px', height: '24px' }} />
+                                                    <a href={ground.groundMaplink} target="_blank" rel="noopener noreferrer">
+                                                        Get Directions
+                                                    </a>
+                                                </div>
+                                                <p>₹{ground.fee || 'Not Specified'}</p>
+                                            </div>
                                         </div>
+                                        <button
+                                            onClick={() => handleBookClick(ground)}
+                                            className={classes.bookButton}
+                                            disabled={isAlreadyBooked}
+                                        >
+                                            {isAlreadyBooked ? 'Already Booked' : 'Book Now'}
+                                        </button>
                                     </div>
-                                    <button onClick={() => handleBookClick(ground)} className={classes.bookButton}>Book Now</button>
-                                </div>
-                            ))
+                                );
+                            })
                         ) : (
                             <div className="error-container">
                                 <div className="error-message">
@@ -360,6 +366,7 @@ function Matches() {
                             </div>
                         )}
                     </div>
+
 
 
 
