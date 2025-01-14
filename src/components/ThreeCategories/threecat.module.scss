@@ -726,6 +726,7 @@
         width: 250px;
         height: 250px;
         object-fit: cover;
+        border-radius: 50%;
     }
 
     h2 {
@@ -837,6 +838,7 @@
     border-radius: 8px;
     padding: 24px;
     gap: 100px;
+    margin-bottom: 12px;
 }
 
 .panelTitle {
@@ -1185,6 +1187,7 @@
 
         h2 {
             font-size: 40px;
+            text-align: center;
         }
     }
 

@@ -56,7 +56,7 @@ function Matches() {
             setError('');
             const response = await fetchGrounds(location);
             console.log('API Response:', response.data);
-    
+
             // Check if the user has grounds
             if (response.data?.grounds && response.data.grounds.length > 0) {
                 console.log('Grounds found:', response.data.grounds);
@@ -72,7 +72,7 @@ function Matches() {
                 setGroundsData([]); // Clear grounds data if none found
                 setError('No grounds available for the selected location.');
             }
-    
+
             // Handle user bookings
             if (response.data?.userBookings && response.data.userBookings.length > 0) {
                 setbookingStatus(response.data.userBookings);
@@ -208,55 +208,58 @@ function Matches() {
                 {myGround && myGround?.pendingBookings?.length > 0 && (
                     <div className={classes.notificationPanel}>
                         <h2 className={classes.panelTitle}>Booking Requests</h2>
-                        <div className={classes.wholecon}>
-                            <div className={classes.notificationCard}>
-                                <div className={classes.bookingDetails}>
-                                    <h3>{myGround.pendingBookings[0].teamName}</h3>
-                                    <p><strong>Date:</strong> {myGround.pendingBookings[0].date}</p>
-                                    <p><strong>Time Slot:</strong> {myGround.pendingBookings[0].timeSlot}</p>
+                        {myGround.pendingBookings.map((booking, index) => (
+                            <div className={classes.wholecon}>
+
+                                <div key={index} className={classes.notificationCard}>
+                                    <div className={classes.bookingDetails}>
+                                        <h3>{booking.teamName}</h3>
+                                        <p><strong>Date:</strong> {booking.date}</p>
+                                        <p><strong>Time Slot:</strong> {booking.timeSlot}</p>
+                                    </div>
+                                    {booking.status === "pending" && (
+                                        <div className={classes.btncon}>
+                                            <button
+                                                style={{ color: "green" }}
+                                                onClick={() => {
+                                                    const bookingId =
+                                                        booking._id || booking.id || booking.bookingId;
+
+                                                    if (!bookingId) {
+                                                        alert('Booking ID not found!');
+                                                        return;
+                                                    }
+
+                                                    handleBookingAction(bookingId, 'booked');
+                                                }}
+                                            >
+                                                ✔
+                                            </button>
+                                            <button
+                                                style={{ color: "red" }}
+                                                onClick={() => {
+                                                    const bookingId =
+                                                        booking._id || booking.id || booking.bookingId;
+
+                                                    if (!bookingId) {
+                                                        alert('Booking ID not found!');
+                                                        return;
+                                                    }
+
+                                                    handleBookingAction(bookingId, 'rejected');
+                                                }}
+                                            >
+                                                ✘
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
+
                             </div>
-
-                            <div className={classes.btncon}>
-                                <button
-                                    style={{ color: "green" }}
-                                    onClick={() => {
-
-                                        const bookingId = myGround.pendingBookings[0]._id ||
-                                            myGround.pendingBookings[0].id ||
-                                            myGround.pendingBookings[0].bookingId;
-
-                                        if (!bookingId) {
-                                            alert('Booking ID not found!');
-                                            return;
-                                        }
-
-                                        handleBookingAction(bookingId, 'booked');
-                                    }}
-                                >
-                                    ✔
-                                </button>
-                                <button
-                                    style={{ color: "red" }}
-                                    onClick={() => {
-                                        const bookingId = myGround.pendingBookings[0]._id ||
-                                            myGround.pendingBookings[0].id ||
-                                            myGround.pendingBookings[0].bookingId;
-
-                                        if (!bookingId) {
-                                            alert('Booking ID not found!');
-                                            return;
-                                        }
-
-                                        handleBookingAction(bookingId, 'rejected');
-                                    }}
-                                >
-                                    ✘
-                                </button>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 )}
+
 
 
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfile } from '../store/profileSlice';
+import * as classes from '../components/Home/home.module.scss'
 
 function MyProfile() {
     const dispatch = useDispatch();
@@ -25,12 +26,18 @@ function MyProfile() {
     }
 
     return (
-        <div>
+        <>
+            <div className={classes.profilecon}>
             <h1>My Profile</h1>
-            {/* <p><strong>Name:</strong> {user.name || "Not Available"}</p> */}
-            <p><strong>Email:</strong> {user.email || "Not Available"}</p>
-            <p><strong>Phone Number:</strong> {user.phoneNumber || "Not Available"}</p>
-        </div>
+            <div className={classes.profile}>
+
+                <p>{user.name || "Not Available"}</p>
+                <p>{user.mobile || "Not Available"}</p>
+                <p>{user.email || "Not Available"}</p>
+                
+            </div>
+        </div >
+        </>
     );
 }
 

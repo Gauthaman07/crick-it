@@ -97,7 +97,53 @@
 
 }
 
+.profilecon {
+    margin: auto;
+    max-width: 1400px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 90px;
+    margin-bottom: 150px;
+
+    h1 {
+        font-size: 30px;
+        font-family: sans-serif;
+        margin-bottom: 50px;
+    }
+}
+
+.profile {
+    display: flex;
+    justify-content: space-evenly;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 12px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    p {
+        font-size: 24px;
+        font-family: 'HelveticaNeueMedium';
+    }
+}
+
+
 @media(max-width:768px) {
+
+    .profilecon {
+        h1 {
+            text-align: center !important;
+        }
+    }
+
+    .profile {
+        flex-direction: column;
+        padding: 20px;
+
+        p {
+            font-size: 22px;
+        }
+
+    }
 
     .container {
         padding-left: 0px;

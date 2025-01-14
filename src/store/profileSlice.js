@@ -26,7 +26,7 @@ const profileSlice = createSlice({
                 state.user = {
                     name: action.payload?.user?.name || null,
                     email: action.payload?.user?.email || null,
-                    phoneNumber: action.payload?.user?.phoneNumber || null,
+                    mobile: action.payload?.user?.mobile || null,
                 };
                 state.team = action.payload?.team || null;
                 state.loading = false;
