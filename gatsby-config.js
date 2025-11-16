@@ -99,6 +99,21 @@ module.exports = {
         policy: [{ userAgent: '*', allow: '/' }]
       }
     },
+    {
+      resolve: 'gatsby-plugin-google-gtag',
+      options: {
+        trackingIds: [
+          'G-9SWEJ4R8RY', // Google Analytics 4 Measurement ID
+        ],
+        pluginConfig: {
+          head: true,
+          respectDNT: true,
+          exclude: ['/preview/**', '/do-not-track/me/too/'],
+          origin: 'https://www.googletagmanager.com',
+          delayOnRouteUpdate: 0,
+        },
+      },
+    },
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
