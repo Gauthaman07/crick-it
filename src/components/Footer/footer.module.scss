@@ -1,5 +1,5 @@
 .footer {
-    background-color: black !important;
+    background-color: #1c1c25 !important;
     color: var(--btnText);
     float: left;
     padding-top: 70px;
@@ -25,14 +25,22 @@
     grid-template-columns: repeat(4, 1fr);
     max-width: 1200px;
 
+    a {
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
     p {
-        font-size: 17px;
+        font-size: 16px;
         color: white;
         cursor: pointer;
         font-weight: 500;
-        cursor: pointer;
         margin-bottom: 10px;
-        font-family: 'HelveticaNeueMedium' !important;
+        font-family: "Manrope", sans-serif !important;
     }
 }
 
@@ -64,11 +72,26 @@
 .copyright {
     // color: var(--primaryTextcolor);
     text-align: center;
-    font-family: 'HelveticaNeueMedium' !important;
+    font-family: system-ui !important;
     padding: 20px 0;
     font-size: var(--textLg);
     margin-bottom: 10px;
     color: white;
+    font-size: 12px !important;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+
+    a {
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
 }
 
 

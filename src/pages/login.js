@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import *as classes from '../styles/auth.module.scss'
 import { showToast, setCookieData } from '../utility/utility';
-import { SignIn } from '../services/services';
+// API INTEGRATION COMMENTED OUT FOR REVAMP
+// import { SignIn } from '../services/services';
 import { navigate } from 'gatsby';
 
 
@@ -37,11 +38,15 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
         if (!validateFields()) {
             return;
         }
 
+        // ==========================================
+        // API INTEGRATION COMMENTED OUT FOR REVAMP
+        // ==========================================
+
+        /*
         try {
             setLoading(true);
 
@@ -73,6 +78,10 @@ function Login() {
         finally {
             setLoading(false);
         }
+        */
+
+        // Temporary stub - just show message (no API call)
+        showToast("info", "Login API is currently disabled for revamp.");
     };
 
 

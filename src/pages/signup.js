@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import *as classes from '../styles/auth.module.scss'
-import { Signup, Login } from '../services/services'
+// API INTEGRATION COMMENTED OUT FOR REVAMP
+// import { Signup, Login } from '../services/services'
 import { showToast } from '../utility/utility';
 import { navigate } from 'gatsby';
 
@@ -78,6 +79,11 @@ function SignupForm() {
             return; // Exit if validation fails
         }
 
+        // ==========================================
+        // API INTEGRATION COMMENTED OUT FOR REVAMP
+        // ==========================================
+
+        /*
         try {
             setLoading(true); // Start loading
 
@@ -104,6 +110,10 @@ function SignupForm() {
         } finally {
             setLoading(false);
         }
+        */
+
+        // Temporary stub - just show message (no API call)
+        showToast("info", "Signup API is currently disabled for revamp.");
     };
 
 

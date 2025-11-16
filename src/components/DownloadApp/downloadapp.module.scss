@@ -1,0 +1,108 @@
+.downloadAppSection {
+    background-color: #f7f4f1;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downloadAppContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.downloadAppTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #111111;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.appButtons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.appButton {
+    display: block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
+
+    img {
+        height: 50px;
+        width: auto;
+        display: block;
+    }
+}
+
+// Responsive Styles
+@media(max-width: 1024px) {
+    .downloadAppTitle {
+        font-size: 28px;
+    }
+
+    .appButton img {
+        height: 45px;
+    }
+}
+
+@media(max-width: 768px) {
+    .downloadAppContainer {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .downloadAppTitle {
+        font-size: 24px;
+        max-width: 100%;
+    }
+
+    .appButtons {
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .appButton img {
+        height: 42px;
+    }
+}
+
+@media(max-width: 480px) {
+    .downloadAppSection {
+        padding: 30px 20px;
+    }
+
+    .downloadAppTitle {
+        font-size: 20px;
+        letter-spacing: -0.5px;
+    }
+
+    .appButtons {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .appButton {
+        width: 100%;
+        max-width: 200px;
+
+        img {
+            height: 40px;
+            width: 100%;
+        }
+    }
+}

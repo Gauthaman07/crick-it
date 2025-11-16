@@ -1,0 +1,42 @@
+.particleContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 10; // Temporarily above content for debugging
+}
+
+.particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(211, 47, 47, 0.8) 0%, rgba(211, 47, 47, 0.3) 40%, rgba(211, 47, 47, 0) 70%);
+    border-radius: 50%;
+    animation: subtleShimmer infinite ease-in-out;
+    will-change: opacity, transform;
+}
+
+// Soft pulse animation: fade in → hold → fade out → hold
+@keyframes subtleShimmer {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    25% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    75% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}

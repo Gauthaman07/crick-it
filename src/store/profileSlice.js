@@ -1,3 +1,8 @@
+// ==========================================
+// REDUX PROFILE SLICE COMMENTED OUT FOR REVAMP
+// ==========================================
+
+/*
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getProfiles } from '../services/services';
 
@@ -39,3 +44,8 @@ const profileSlice = createSlice({
 });
 
 export default profileSlice.reducer;
+*/
+
+// Temporary stub reducer to prevent import errors
+export default (state = { user: null, team: null, loading: false, error: null }) => state;
+export const fetchProfile = () => ({ type: 'STUB_ACTION' });

@@ -1,3 +1,8 @@
+// ==========================================
+// REDUX STORE - API calls commented out
+// Store configuration kept for compatibility
+// ==========================================
+
 import { configureStore } from '@reduxjs/toolkit';
 import profileReducer from './profileSlice';
 

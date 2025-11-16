@@ -1,0 +1,669 @@
+.blogPostPage {
+    background-color: #f7f4f1;
+    min-height: 100vh;
+}
+
+// Header Styles
+.pageHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 80px;
+    background: #111111;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.headerLogo {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+
+    img {
+        height: 50px;
+        width: auto;
+        display: block;
+    }
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.headerNav {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+
+    a {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        font-family: "HelveticaNeueMedium", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+
+        &:hover {
+            color: #ffffff;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+    }
+}
+
+.hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s ease;
+    z-index: 100;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.mobileMenu {
+    background: transparent !important;
+    border: none !important;
+
+    :global(.ant-menu-item) {
+        padding: 20px 24px !important;
+        margin: 0 !important;
+        height: auto !important;
+        line-height: 1.5 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+
+        a {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-family: "HelveticaNeueMedium", sans-serif !important;
+            font-size: 18px !important;
+            text-decoration: none !important;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.05) !important;
+
+            a {
+                color: #ffffff !important;
+            }
+        }
+    }
+
+    :global(.ant-menu-item-selected) {
+        background: rgba(255, 255, 255, 0.1) !important;
+    }
+}
+
+// Blog Header
+.blogHeader {
+    // background: #ffffff;
+    padding: 140px 80px 60px;
+    // border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.blogHeaderContent {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.backLink {
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666666;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 24px;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #d32f2f;
+    }
+}
+
+.blogCategory {
+    display: inline-block;
+    background: #d32f2f;
+    color: #ffffff;
+    padding: 6px;
+    font-family: "HelveticaNeueMedium", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+}
+
+.blogPostTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.3;
+    letter-spacing: -2px;
+    color: #111111;
+    margin: 0 0 24px 0;
+}
+
+.blogPostMeta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.blogAuthor {
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111111;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.blogDate,
+.blogReadTime {
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    color: #666666;
+}
+
+.blogDivider {
+    color: #666666;
+    font-size: 14px;
+}
+
+// Featured Image
+.featuredImage {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+        border-radius: 14px;
+    }
+}
+
+// Blog Content
+.blogContent {
+    // background: #ffffff;
+    padding: 60px 80px 80px;
+}
+
+.blogContentInner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+// Engagement Bar
+.engagementBar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.likeButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #666666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    svg {
+        font-size: 18px;
+    }
+
+    &:hover {
+        border-color: #d32f2f;
+        color: #d32f2f;
+    }
+
+    &.liked {
+        border-color: #d32f2f;
+        color: #d32f2f;
+        background: rgba(211, 47, 47, 0.05);
+
+        svg {
+            color: #d32f2f;
+        }
+    }
+}
+
+.shareButtonWrapper {
+    position: relative;
+}
+
+.shareButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #666666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    svg {
+        font-size: 18px;
+    }
+
+    &:hover {
+        border-color: #111111;
+        color: #111111;
+    }
+}
+
+.shareMenu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    min-width: 160px;
+    z-index: 100;
+
+    button {
+        display: block;
+        width: 100%;
+        background: transparent;
+        border: none;
+        padding: 12px 16px;
+        text-align: left;
+        font-family: "Manrope", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        color: #111111;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: #f7f4f1;
+        }
+    }
+}
+
+// Article Content
+.articleContent {
+    font-family: "Manrope", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #333333;
+
+    :global(p) {
+        margin: 0 0 24px 0;
+    }
+
+    :global(h2) {
+        font-family: "HelveticaNeueBold", sans-serif;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #111111;
+        margin: 48px 0 24px 0;
+    }
+
+    :global(h3) {
+        font-family: "HelveticaNeueBold", sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.3;
+        color: #111111;
+        margin: 40px 0 20px 0;
+    }
+
+    :global(h4) {
+        font-family: "HelveticaNeueMedium", sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #111111;
+        margin: 32px 0 16px 0;
+    }
+
+    :global(a) {
+        color: #d32f2f;
+        text-decoration: underline;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    :global(blockquote) {
+        border-left: 4px solid #d32f2f;
+        padding-left: 24px;
+        margin: 32px 0;
+        font-style: italic;
+        color: #666666;
+        font-size: 20px;
+    }
+
+    :global(ul),
+    :global(ol) {
+        margin: 24px 0;
+        padding-left: 32px;
+
+        li {
+            margin: 12px 0;
+        }
+    }
+
+    :global(img) {
+        width: 100%;
+        height: auto;
+        margin: 32px 0;
+        border-radius: 8px;
+    }
+
+    :global(strong) {
+        font-weight: 600;
+        color: #111111;
+    }
+}
+
+// Blog Footer
+.blogFooter {
+    // background: #ffffff;
+    padding: 60px 80px 80px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.blogFooterContent {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.backToBlog {
+    display: inline-block;
+    font-family: "HelveticaNeueMedium", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111111;
+    text-decoration: none;
+    padding: 14px 32px;
+    border: 2px solid #111111;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: #111111;
+        color: #ffffff;
+    }
+}
+
+// Not Found
+.notFound {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+
+    h1 {
+        font-family: "HelveticaNeueBold", sans-serif;
+        font-size: 48px;
+        margin-bottom: 24px;
+    }
+
+    a {
+        font-family: "Manrope", sans-serif;
+        font-size: 16px;
+        color: #d32f2f;
+        text-decoration: underline;
+    }
+}
+
+// Responsive Styles
+@media(max-width: 1024px) {
+    .pageHeader {
+        padding: 24px 50px;
+    }
+
+    .headerLogo img {
+        height: 45px;
+    }
+
+    .headerNav {
+        gap: 36px;
+
+        a {
+            font-size: 15px;
+        }
+    }
+
+    .blogHeader {
+        padding: 120px 50px 50px;
+    }
+
+    .blogPostTitle {
+        font-size: 52px;
+    }
+
+    .featuredImage {
+        padding: 0 50px;
+    }
+
+    .blogContent {
+        padding: 50px 50px 70px;
+    }
+
+    .articleContent {
+        font-size: 17px;
+
+        :global(h2) {
+            font-size: 32px;
+        }
+
+        :global(h3) {
+            font-size: 24px;
+        }
+    }
+
+    .blogFooter {
+        padding: 50px 50px 70px;
+    }
+}
+
+@media(max-width: 768px) {
+    .pageHeader {
+        padding: 20px 30px;
+    }
+
+    .headerLogo img {
+        height: 40px;
+    }
+
+    .headerNav {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .blogHeader {
+        padding: 100px 30px 40px;
+    }
+
+    .blogPostTitle {
+        font-size: 40px;
+    }
+
+    .featuredImage {
+        padding: 0 30px;
+    }
+
+    .blogContent {
+        padding: 40px 30px 60px;
+    }
+
+    .engagementBar {
+        margin-bottom: 36px;
+        padding-bottom: 20px;
+    }
+
+    .articleContent {
+        font-size: 16px;
+
+        :global(h2) {
+            font-size: 28px;
+            margin: 36px 0 20px 0;
+        }
+
+        :global(h3) {
+            font-size: 22px;
+        }
+
+        :global(blockquote) {
+            font-size: 18px;
+        }
+    }
+
+    .blogFooter {
+        padding: 40px 30px 60px;
+    }
+}
+
+@media(max-width: 480px) {
+    .pageHeader {
+        padding: 18px 20px;
+    }
+
+    .headerLogo img {
+        height: 36px;
+    }
+
+    .hamburger {
+        font-size: 22px;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+    .blogHeader {
+        padding: 80px 20px 30px;
+    }
+
+    .blogPostTitle {
+        font-size: 32px;
+        letter-spacing: -1px;
+    }
+
+    .blogPostMeta {
+        gap: 8px;
+        font-size: 13px;
+    }
+
+    .featuredImage {
+        padding: 0 20px;
+    }
+
+    .blogContent {
+        padding: 30px 20px 50px;
+    }
+
+    .engagementBar {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .likeButton,
+    .shareButton {
+        padding: 8px 16px;
+        font-size: 14px;
+
+        svg {
+            font-size: 16px;
+        }
+    }
+
+    .articleContent {
+        font-size: 15px;
+        line-height: 1.7;
+
+        :global(p) {
+            margin: 0 0 20px 0;
+        }
+
+        :global(h2) {
+            font-size: 24px;
+            margin: 32px 0 16px 0;
+        }
+
+        :global(h3) {
+            font-size: 20px;
+            margin: 28px 0 14px 0;
+        }
+
+        :global(blockquote) {
+            font-size: 16px;
+            padding-left: 20px;
+            margin: 24px 0;
+        }
+    }
+
+    .blogFooter {
+        padding: 30px 20px 50px;
+    }
+
+    .backToBlog {
+        font-size: 14px;
+        padding: 12px 24px;
+    }
+}

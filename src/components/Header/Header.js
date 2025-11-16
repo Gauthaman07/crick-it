@@ -5,14 +5,20 @@ import { Menu, Button, Drawer, Dropdown, Popover } from 'antd';
 import { MenuOutlined, DownOutlined } from '@ant-design/icons';
 import { getCookieData, deleteCookieData } from '../../utility/utility';
 import SubMenu from 'antd/es/menu/SubMenu';
-import { useDispatch, useSelector } from 'react-redux';  // Import Redux hooks
-import { fetchProfile, resetProfile } from '../../store/profileSlice';
+// API INTEGRATION COMMENTED OUT FOR REVAMP
+// import { useDispatch, useSelector } from 'react-redux';  // Import Redux hooks
+// import { fetchProfile, resetProfile } from '../../store/profileSlice';
 import Logo from '../../images/ckwlogo.png';
 
 function Header({ location }) {
     const [visible, setVisible] = useState(false);
     const AccessToken = getCookieData("authO_tk");
 
+    // ==========================================
+    // API INTEGRATION COMMENTED OUT FOR REVAMP
+    // ==========================================
+
+    /*
     // Redux hooks to access and dispatch actions
     const dispatch = useDispatch();
     const { user, team, loading, error } = useSelector((state) => state.profile);
@@ -36,6 +42,7 @@ function Header({ location }) {
             console.log('Team ID stored:', team.id);
         }
     }, [team]);
+    */
 
     // Handle Logout
     const handleLogout = () => {
@@ -44,8 +51,8 @@ function Header({ location }) {
         navigate('/login');
     };
 
-
-    const userDisplayName = loading ? 'Loading...' : (user ? user.name : 'User');
+    // Temporary stub for user display (API commented out)
+    const userDisplayName = 'User';
 
     const menu = (
         <Menu>
@@ -76,23 +83,9 @@ function Header({ location }) {
 
                     {/* Desktop Navigation */}
                     <nav className={classes.navLinks}>
-                        <Link to="/my-team">My Team</Link>
-                        <Link to="/match-booking">Match Booking</Link>
-                        <Link to="/tournaments">Tournaments</Link>
-
-                        {AccessToken ? (
-                            <Popover content={menu} trigger="click" placement="bottomLeft">
-                            <a
-                                style={{ cursor: 'pointer' }}
-                                className="ant-dropdown-link"
-                                onClick={(e) => e.preventDefault()}
-                            >
-                                Hello, {userDisplayName} <DownOutlined style={{width:"14px", height:"20px"}}/>
-                            </a>
-                        </Popover>
-                        ) : (
-                            <Link to="/login">Login</Link>
-                        )}
+                        <Link to="/">Matches</Link>
+                        <Link to="/">Tournaments</Link>
+                        <Link to="/">Blog</Link>
                     </nav>
                 </div>
 
@@ -108,25 +101,15 @@ function Header({ location }) {
                             <Menu.Item key="home">
                                 <Link to="/">Home</Link>
                             </Menu.Item>
-                            <Menu.Item key="dreateteam">
-                                <Link to="/my-team">My Team</Link>
+                            <Menu.Item key="matches">
+                                <Link to="/">Matches</Link>
                             </Menu.Item>
-                            <Menu.Item key="match">
-                                <Link to="/match-booking">Match Booking</Link>
+                            <Menu.Item key="tournaments">
+                                <Link to="/">Tournaments</Link>
                             </Menu.Item>
-                            <Menu.Item key="tournament">
-                                <Link to="/tournaments">Tournaments</Link>
+                            <Menu.Item key="blog">
+                                <Link to="/">The Nightwatchman Notes</Link>
                             </Menu.Item>
-                            {AccessToken ? (
-                                <SubMenu key="settings" title="Settings">
-                                    <Menu.Item key="myaccount">My Profile</Menu.Item>
-                                    <Menu.Item onClick={handleLogout} key="logout">Log out</Menu.Item>
-                                </SubMenu>
-                            ) : (
-                                <Menu.Item key="login">
-                                    <Link to="/login">Login</Link>
-                                </Menu.Item>
-                            )}
                         </Menu>
                     </Drawer>
                     <div onClick={() => navigate('/')} className={classes.logo}>

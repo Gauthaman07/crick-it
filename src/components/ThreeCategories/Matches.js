@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as classes from './threecat.module.scss'
 import { FaMapMarkerAlt, FaClipboardList } from 'react-icons/fa';
-import { fetchGrounds, Bookground, updateBookingStatus } from '../../services/services';
+// API INTEGRATION COMMENTED OUT FOR REVAMP
+// import { fetchGrounds, Bookground, updateBookingStatus } from '../../services/services';
 import Customloader from '../Elements/Customloader';
 import { navigate } from 'gatsby';
 import { IoLocationOutline } from "react-icons/io5";
@@ -50,7 +51,12 @@ function Matches() {
         }
     }, [selectedCity]);
 
+    // ==========================================
+    // API INTEGRATION COMMENTED OUT FOR REVAMP
+    // ==========================================
+
     const fetchGroundsForLocation = async (location) => {
+        /*
         try {
             setLoading(true);
             setError('');
@@ -84,6 +90,12 @@ function Matches() {
         } finally {
             setLoading(false);
         }
+        */
+
+        // Temporary stub - no API call
+        setLoading(false);
+        setGroundsData([]);
+        showToast("info", "Ground booking API is currently disabled for revamp.");
     };
 
     const handleLocationChange = (event) => {
@@ -105,6 +117,11 @@ function Matches() {
             return;
         }
 
+        // ==========================================
+        // API INTEGRATION COMMENTED OUT FOR REVAMP
+        // ==========================================
+
+        /*
         try {
             const bookingData = {
                 bookedDate: selectedDate,
@@ -129,6 +146,10 @@ function Matches() {
             showToast("error", "Failed to book ground. Please try again.")
             // alert(error.response?.data?.message || "Failed to book ground. Please try again.");
         }
+        */
+
+        // Temporary stub - just show message (no API call)
+        showToast("info", "Booking API is currently disabled for revamp.");
     };
 
 
@@ -174,6 +195,11 @@ function Matches() {
             return;
         }
 
+        // ==========================================
+        // API INTEGRATION COMMENTED OUT FOR REVAMP
+        // ==========================================
+
+        /*
         try {
             console.log('Attempting to update booking:', {
                 bookingId,
@@ -196,6 +222,10 @@ function Matches() {
             console.error('Booking update error:', error);
             alert(error.response?.data?.message || `Failed to ${status} booking. Please try again.`);
         }
+        */
+
+        // Temporary stub - just show message (no API call)
+        showToast("info", "Booking status update API is currently disabled for revamp.");
     };
 
     return (

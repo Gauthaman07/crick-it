@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import * as classes from './threecat.module.scss'
 import { showToast } from '../../utility/utility';
-import { TeamCreation } from '../../services/services';
+// API INTEGRATION COMMENTED OUT FOR REVAMP
+// import { TeamCreation } from '../../services/services';
 
 
 function Create() {
@@ -197,13 +198,17 @@ function Create() {
 
         }
 
-    
+        // ==========================================
+        // API INTEGRATION COMMENTED OUT FOR REVAMP
+        // ==========================================
+
+        /*
         try {
             setloading(true)
             const response = await TeamCreation(data);
             console.log("Form submitted successfully:", response.data);
 
-        
+
             showToast("success", "Team created successfully!");
             setTimeout(() => {
                 if (typeof window !== "undefined") {
@@ -213,12 +218,16 @@ function Create() {
         } catch (error) {
             console.error("Error submitting form:", error);
             showToast("error", "An error occurred while submitting the form. Please try again.");
-    
+
             // alert("An error occurred while submitting the form. Please try again.");
         }
         finally {
             setloading(false);
         }
+        */
+
+        // Temporary stub - just show message (no API call)
+        showToast("info", "Team creation API is currently disabled for revamp.");
     };
 
 

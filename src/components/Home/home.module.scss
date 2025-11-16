@@ -1,193 +1,1270 @@
-// body{
-//     background-color: white;
-// }
-
-
-.container {
-    padding-left: 25px;
-    padding-right: 25px;
-    margin-bottom: 60px;
-    margin-top: 40px;
+// Hero Section Styles
+.heroSection {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../images/hero.webp');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 0;
+    overflow: hidden;
 }
 
-.alertpanel {
-    margin-top: 80px;
-    margin-bottom: 80px;
+.heroOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.95) 0%,
+            rgba(255, 255, 255, 0.7) 100px,
+            rgba(255, 255, 255, 0) 200px
+        ),
+        linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.65) 0%,
+            rgba(0, 0, 0, 0.45) 50%,
+            rgba(0, 0, 0, 0.25) 100%
+        );
+}
 
-    h1 {
-        font-family: "HelveticaNeueCondensedBold";
-        font-size: 80px;
-        margin-bottom: 0px;
-        letter-spacing: -3.1px;
-        color: #111111;
-        text-align: center !important;
-        text-transform: uppercase;
-        // font-weight: 500;
+// Hero Header Styles (inside hero section)
+.heroHeader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 80px;
+    background: transparent;
+}
+
+.headerLogo {
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    img {
+        height: 100px;
+        width: auto;
+        display: block;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6))
+                drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))
+                drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
+        transition: filter 0.3s ease;
     }
+
+    &:hover {
+        img {
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8))
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))
+                    drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+        }
+    }
+}
+
+.headerNav {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+
+    a {
+        color: #111111;
+        text-decoration: none;
+        font-family: "Manrope", sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        position: relative;
+
+        &:hover {
+            color: #d32f2f;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #d32f2f;
+            transition: width 0.3s ease;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+    }
+}
+
+// Hamburger Menu Button (hidden by default on desktop)
+.hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #111111;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s ease;
+    z-index: 100;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+// Show nav and hide hamburger on desktop
+@media(min-width: 769px) {
+    .headerNav {
+        display: flex;
+    }
+
+    .hamburger {
+        display: none;
+    }
+}
+
+// Mobile Menu Styles
+.mobileMenu {
+    background: transparent !important;
+    border: none !important;
+
+    :global(.ant-menu-item) {
+        padding: 20px 24px !important;
+        margin: 0 !important;
+        height: auto !important;
+        line-height: 1.5 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+
+        a {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-family: "HelveticaNeueMedium", sans-serif !important;
+            font-size: 18px !important;
+            text-decoration: none !important;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.05) !important;
+
+            a {
+                color: #ffffff !important;
+            }
+        }
+    }
+
+    :global(.ant-menu-item-selected) {
+        background: rgba(255, 255, 255, 0.1) !important;
+    }
+}
+
+.heroContent {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1400px;
+    min-height: calc(100vh - 120px);
+    padding: 140px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.heroText {
+    max-width: 800px;
+}
+
+.heroTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 80px;
+    line-height: 1;
+    margin: 0;
+    color: #ffffff;
+    letter-spacing: -2px;
+    // text-transform: capitalize;
+    font-weight: 700;
+}
+
+.heroSubtitle {
+    display: block;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+    font-family: "HelveticaNeueLight", sans-serif;
+}
+
+.heroDescription {
+    max-width: 500px;
+    margin-top: 40px;
 
     p {
-        font-family: "HelveticaNeueLight";
-        color: #111111;
-        font-size: 30px;
-        letter-spacing: 0.7px;
+        font-family: "Manrope", sans-serif;
+        font-size: 18px;
         font-weight: 500;
-        margin-bottom: 0;
-        text-align: center;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.85);
+        margin: 0;
     }
-
 }
 
-.imgblock {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 110px;
-    gap: 20px;
+// Move to Zero Section Styles
+.moveToZeroSection {
     position: relative;
+    background-color: #f7f4f1;
+    padding: 120px 80px;
+}
 
-    .subblock {
-        position: relative;
-        width: 32%;
-        cursor: pointer;
+.moveContainer {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-        img {
-            width: 100%;
-            height: 520px;
-            object-fit: cover;
-            filter: brightness(60%);
-        }
+.moveHeader {
+    margin-bottom: 50px;
+}
 
-        .textblock {
-            position: absolute;
-            top: 50%;
-            left: 8%;
-            z-index: 1;
+.moveTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 70px;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin: 0 0 30px 0;
+    color: #d32f2f;
+    text-transform: uppercase;
+    line-height: 1;
+}
 
-            h3 {
-                color: #ffffff;
-                font-family: "HelveticaNeueMedium";
-                font-size: 18px;
-                text-shadow: 2px 2px #000;
-                text-align: left;
-                margin-top: 0px;
-            }
+.moveSubtext {
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #111111;
+    margin: auto;
+    letter-spacing: 0.5px;
+    text-align: center;
+    width: 50%;
+}
 
-            p {
-                font-family: "HelveticaNeueMedium";
-                color: #ffffff;
-                margin-bottom: 8px;
-                font-size: 30px;
-                text-shadow: 2px 2px #000;
-            }
+.pathSection {
+    margin-top: 50px;
+}
 
-            button {
-                font-family: "HelveticaNeueMedium";
-                border-radius: 50px;
-                padding: 8px 20px 8px 20px;
-                background-color: #ffffff;
-                color: #111111;
-                font-size: 18px;
-                border: none;
-                margin-top: 14px;
-                cursor: pointer;
-            }
+.pathTitle {
+    font-family: "HelveticaNeueBold", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    color: #111111;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+.pathText {
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #111111;
+    margin: 0;
+    max-width: 900px;
+    // text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+// Hero Card Section Styles
+.heroCardSection {
+    // background-color: #f7f4f1;
+    padding: 0px 80px;
+}
+
+.heroCardContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.heroCard2 {
+    position: relative;
+    background-image: url('../../images/gp.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 32px;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.heroCardOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+}
+
+.heroCardContent {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 80px 100px;
+    max-width: 1000px;
+}
+
+.heroCardTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0 0 40px 0;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.heroCardTitleGray {
+    color: rgba(255, 255, 255, 0.5);
+    display: block;
+}
+
+.heroCardText {
+    p {
+        font-family: "Manrope", sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0 0 24px 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.heroCardHighlight {
+    font-weight: 500 !important;
+    color: #ffffff !important;
+    font-size: 19px !important;
+    margin-top: 32px !important;
+}
+
+// Scroll Animation Text Section Styles
+.scrollTextSection {
+    // background-color: #f7f4f1;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 40px;
+    overflow: hidden;
+    position: relative;
+}
+
+.scrollTextContainer {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.outlineText {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 160px;
+    font-weight: 900;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(0, 0, 0, 0.15);
+    text-stroke: 2px rgba(0, 0, 0, 0.15);
+    text-transform: uppercase;
+    letter-spacing: -4px;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+
+    &.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.boldText {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 180px;
+    font-weight: 900;
+    line-height: 1;
+    color: #d32f2f;
+    text-transform: uppercase;
+    letter-spacing: -4px;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+
+    &.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Feature Cards Section Styles
+.cardsSection {
+    background-color: #f7f4f1;
+    padding: 0 0 80px 0;
+    position: relative;
+}
+
+.redStripe {
+    width: 100%;
+    height: 8px;
+    background-color: #d32f2f;
+    margin-bottom: 80px;
+}
+
+.cardsContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
+.cardsMainTitle {
+     font-family: "HelveticaNeueMedium";
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: #111111;
+    margin: 0 0 60px 0;
+    text-transform: uppercase;
+    max-width: 1000px;
+}
+
+.cardsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 40px 32px;
+    border-radius: 0;
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.cardIcon {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    svg {
+        font-size: 56px;
+        width: 56px;
+        height: 56px;
+        color: #d32f2f;
+        stroke-width: 1.5px;
+    }
+}
+
+.cardTitle {
+font-family: 'Manrope';
+    font-size: 18px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+}
+
+.cardDescription {
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #666666;
+    margin: 0;
+}
+
+// Hero Card Styles - REMOVED
+// Card component has been removed from design
+/*
+.heroCard {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 32px;
+    min-width: 380px;
+    max-width: 420px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.cardTitle {
+    font-family: "HelveticaNeueBold", sans-serif;
+    font-size: 28px;
+    color: #ffffff;
+    margin: 0 0 24px 0;
+    font-weight: 600;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.cardText {
+    font-family: "HelveticaNeueLight", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+}
+
+.cardButton {
+    width: 100%;
+    padding: 14px 24px;
+    background-color: #ffffff;
+    color: #111111;
+    border: none;
+    border-radius: 12px;
+    font-family: "HelveticaNeueMedium", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+    }
+}
+*/
+
+// Promotional Cards Section
+.promoSection {
+    background-color: #f5f5f5;
+    padding: 80px 0;
+}
+
+.promoContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.promoCard {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.promoContent {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.promoTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: #111111;
+    margin: 0 0 24px 0;
+}
+
+.promoText {
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0 0 32px 0;
+    max-width: 500px;
+}
+
+.promoButton {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: transparent;
+    color: #111111;
+    border: 2px solid #111111;
+    border-radius: 50px;
+    font-family: "HelveticaNeueMedium", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    align-self: flex-start;
+
+    &:hover {
+        background-color: #111111;
+        color: #ffffff;
+    }
+}
+
+.promoImage {
+    flex: 1;
+    min-height: 400px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+}
+
+// Responsive Styles
+// For large tablets and small laptops - keep hero relatively consistent
+@media(max-width: 1280px) and (min-width: 1025px) {
+    .heroHeader {
+        padding: 28px 60px;
+    }
+
+    .headerLogo img {
+        height: 90px;
+    }
+
+    .headerNav {
+        gap: 42px;
+
+        a {
+            font-size: 15px;
         }
     }
 
-
+    .heroContent {
+        padding: 130px 60px 70px;
+    }
 }
 
-.profilecon {
-    margin: auto;
-    max-width: 1400px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 90px;
-    margin-bottom: 150px;
+// For tablets
+@media(max-width: 1024px) {
+    .heroHeader {
+        padding: 28px 50px;
+    }
 
-    h1 {
-        font-size: 30px;
-        font-family: sans-serif;
+    .headerLogo img {
+        height: 75px;
+    }
+
+    .headerNav {
+        gap: 36px;
+
+        a {
+            font-size: 15px;
+        }
+    }
+
+    // Keep hamburger hidden on tablet/desktop
+    .hamburger {
+        display: none;
+    }
+
+    .heroContent {
+        min-height: calc(100vh - 100px);
+        padding: 120px 50px 60px;
+    }
+
+    .heroTitle {
+        font-size: 72px;
+    }
+
+    .heroDescription {
+        max-width: 450px;
+
+        p {
+            font-size: 15px;
+        }
+    }
+
+    // Move to Zero responsive
+    .moveToZeroSection {
+        padding: 100px 50px;
+    }
+
+    .moveTitle {
+        font-size: 64px;
+    }
+
+    .pathTitle {
+        font-size: 28px;
+    }
+
+    // Hero Card responsive
+    .heroCardSection {
+        padding: 60px 50px;
+    }
+
+    .heroCard2 {
+        min-height: 450px;
+    }
+
+    .heroCardContent {
+        padding: 60px 80px;
+    }
+
+    .heroCardTitle {
+        font-size: 48px;
+    }
+
+    .heroCardText p {
+        font-size: 17px;
+    }
+
+    .heroCardHighlight {
+        font-size: 18px !important;
+    }
+
+    // Scroll Text responsive
+    .scrollTextSection {
+        padding: 50px 40px;
+    }
+
+    .scrollTextContainer {
+        gap: 25px;
+    }
+
+    .outlineText {
+        font-size: 140px;
+        letter-spacing: -3px;
+        -webkit-text-stroke: 2px rgba(0, 0, 0, 0.12);
+        transform: translateY(80px);
+
+        &.visible {
+            transform: translateY(0);
+        }
+    }
+
+    .boldText {
+        font-size: 140px;
+        letter-spacing: -3px;
+        transform: translateY(80px);
+
+        &.visible {
+            transform: translateY(0);
+        }
+    }
+
+    // Cards responsive
+    .cardsContainer {
+        padding: 0 50px;
+    }
+
+    .cardsMainTitle {
+        font-size: 52px;
+        margin-bottom: 60px;
+    }
+
+    .cardsGrid {
+        gap: 32px;
+    }
+
+    // Promo responsive
+    .promoContainer {
+        padding: 0 50px;
+        gap: 32px;
+    }
+
+    .promoContent {
+        padding: 50px;
+    }
+
+    .promoTitle {
+        font-size: 40px;
+    }
+
+    .promoImage {
+        min-height: 350px;
+    }
+}
+
+@media(max-width: 768px) {
+    .heroSection {
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .heroHeader {
+        padding: 4px 30px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .headerLogo img {
+        height: 68px;
+    }
+
+    // Hide desktop nav on mobile
+    .headerNav {
+        display: none;
+    }
+
+    // Show hamburger on mobile
+    .hamburger {
+        display: block;
+    }
+
+    .heroContent {
+        min-height: calc(100vh - 120px);
+        padding: 100px 30px 50px;
+    }
+
+    .heroText {
+        max-width: 100%;
+    }
+
+    .heroTitle {
+        font-size: 56px;
+        letter-spacing: -1px;
+    }
+
+    .heroDescription {
+        max-width: 100%;
+
+        p {
+            font-size: 15px;
+        }
+    }
+
+    // Move to Zero responsive for tablet
+    .moveToZeroSection {
+        padding: 80px 30px;
+    }
+
+    .moveHeader {
+        margin-bottom: 60px;
+    }
+
+    .moveTitle {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+
+    .moveSubtext {
+        font-size: 14px;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .pathSection {
+        margin-top: 60px;
+    }
+
+    .pathTitle {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .pathText {
+        font-size: 14px;
+        max-width: 100%;
+    }
+
+    // Hero Card responsive for tablet
+    .heroCardSection {
+        padding: 0px 30px;
+    }
+
+    .heroCard2 {
+        min-height: 400px;
+        border-radius: 24px;
+    }
+
+    .heroCardContent {
+        padding: 50px 40px;
+    }
+
+    .heroCardTitle {
+        font-size: 40px;
+        margin-bottom: 30px;
+    }
+
+    .heroCardText p {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .heroCardHighlight {
+        font-size: 17px !important;
+        margin-top: 24px !important;
+    }
+
+    // Scroll Text responsive for tablet
+    .scrollTextSection {
+        padding: 40px 30px;
+    }
+
+    .scrollTextContainer {
+        gap: 20px;
+    }
+
+    .outlineText {
+        font-size: 100px;
+        letter-spacing: -2px;
+        -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.12);
+        transform: translateY(60px);
+
+        &.visible {
+            transform: translateY(0);
+        }
+    }
+
+    .boldText {
+        font-size: 100px;
+        letter-spacing: -2px;
+        transform: translateY(60px);
+
+        &.visible {
+            transform: translateY(0);
+        }
+    }
+
+    // Cards responsive for tablet
+    .cardsSection {
+        padding: 0 0 80px 0;
+    }
+
+    .redStripe {
+        margin-bottom: 60px;
+    }
+
+    .cardsContainer {
+        padding: 0 30px;
+    }
+
+    .cardsMainTitle {
+        font-size: 40px;
         margin-bottom: 50px;
     }
-}
 
-.profile {
-    display: flex;
-    justify-content: space-evenly;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    border-radius: 12px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-    p {
-        font-size: 24px;
-        font-family: 'HelveticaNeueMedium';
-    }
-}
-
-
-@media(max-width:768px) {
-
-    .profilecon {
-        h1 {
-            text-align: center !important;
-        }
+    .cardsGrid {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
 
-    .profile {
+    .card {
+        padding: 32px 28px;
+    }
+
+    .cardTitle {
+        font-size: 22px;
+    }
+
+    .cardDescription {
+        font-size: 14px;
+    }
+
+    // Promo responsive
+    .promoSection {
+        padding: 60px 0;
+    }
+
+    .promoContainer {
+        padding: 0 30px;
+        gap: 24px;
+    }
+
+    .promoCard {
         flex-direction: column;
+    }
+
+    .promoContent {
+        padding: 40px 30px;
+    }
+
+    .promoTitle {
+        font-size: 36px;
+    }
+
+    .promoText {
+        font-size: 15px;
+    }
+
+    .promoImage {
+        min-height: 300px;
+        order: -1;
+    }
+}
+
+@media(max-width: 480px) {
+    .heroSection {
+        margin: 0;
+        min-height: 100vh;
+    }
+
+    .heroHeader {
         padding: 20px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .headerLogo img {
+        height: 42px;
+    }
+
+    // Hide desktop nav on small mobile
+    .headerNav {
+        display: none;
+    }
+
+    // Show hamburger on small mobile
+    .hamburger {
+        display: block;
+        font-size: 22px;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+    .heroContent {
+        min-height: calc(100vh - 100px);
+        padding: 100px 20px 40px;
+    }
+
+    .heroTitle {
+        font-size: 32px;
+    }
+
+    .heroDescription {
+        max-width: 100%;
 
         p {
-            font-size: 22px;
-        }
-
-    }
-
-    .container {
-        padding-left: 0px;
-        padding-right: 0px;
-
-    }
-
-    .alertpanel {
-        h1 {
-            font-size: 36px;
-            letter-spacing: -1px !important;
-        }
-
-        p {
-            font-size: 22px;
+            font-size: 14px;
         }
     }
 
-    .imgblock {
-        gap: 10px;
-        z-index: -999;
+    // Hero Card responsive for mobile
+    .heroCardSection {
+        padding: 0px 20px;
+    }
 
-        .subblock {
-            width: 100%;
-            height: 400px;
+    .heroCard2 {
+        min-height: 480px;
+        border-radius: 20px;
+    }
 
-            .textblock {
-                left: 4%;
+    .heroCardContent {
+        padding: 40px 24px;
+    }
 
-                h3 {
-                    text-align: left;
-                    font-size: 20px;
-                }
+    .heroCardTitle {
+        font-size: 32px;
+        margin-bottom: 24px;
+        letter-spacing: 0;
+    }
 
-                p {
-                    font-size: 24px;
-                }
-            }
+    .heroCardText p {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
 
-            img {
-                height: 100%;
-            }
+    .heroCardHighlight {
+        font-size: 16px !important;
+        margin-top: 20px !important;
+    }
 
+    // Scroll Text responsive for mobile
+    .scrollTextSection {
+        padding: 30px 20px;
+    }
+
+    .scrollTextContainer {
+        gap: 15px;
+    }
+
+    .outlineText {
+        font-size: 64px;
+        letter-spacing: -1px;
+        -webkit-text-stroke: 1px rgba(0, 0, 0, 0.15);
+        transform: translateY(50px);
+
+        &.visible {
+            transform: translateY(0);
         }
     }
 
+    .boldText {
+        font-size: 64px;
+        letter-spacing: -1px;
+        transform: translateY(50px);
+
+        &.visible {
+            transform: translateY(0);
+        }
+    }
+
+    // Move to Zero responsive for mobile
+    .moveToZeroSection {
+        padding: 60px 20px;
+    }
+
+    .moveHeader {
+        margin-bottom: 50px;
+    }
+
+    .moveTitle {
+        font-size: 36px;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+    }
+
+    .moveSubtext {
+        font-size: 13px;
+        line-height: 1.5;
+        width: 100%;
+    }
+
+    .pathSection {
+        margin-top: 50px;
+    }
+
+    .pathTitle {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    .pathText {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    // Cards responsive for mobile
+    .cardsSection {
+        padding: 0 0 60px 0;
+    }
+
+    .redStripe {
+        margin-bottom: 40px;
+        height: 6px;
+    }
+
+    .cardsContainer {
+        padding: 0 20px;
+    }
+
+    .cardsMainTitle {
+        font-size: 32px;
+        margin-bottom: 40px;
+        letter-spacing: -1px;
+    }
+
+    .cardsGrid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .card {
+        padding: 28px 24px;
+    }
+
+    .cardIcon svg {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+    }
+
+    .cardTitle {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .cardDescription {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    // Promo responsive for mobile
+    .promoSection {
+        padding: 50px 0;
+    }
+
+    .promoContainer {
+        padding: 0 20px;
+        gap: 20px;
+    }
+
+    .promoContent {
+        padding: 30px 24px;
+    }
+
+    .promoTitle {
+        font-size: 28px;
+        margin-bottom: 16px;
+    }
+
+    .promoText {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .promoButton {
+        padding: 12px 28px;
+        font-size: 13px;
+    }
+
+    .promoImage {
+        min-height: 240px;
+    }
 }

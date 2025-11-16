@@ -1,3 +1,8 @@
+// ==========================================
+// API SERVICES COMMENTED OUT FOR REVAMP
+// ==========================================
+
+/*
 import axios from "axios";
 import { getCookieData } from "../utility/utility";
 
@@ -79,10 +84,10 @@ export const Bookground = (data) => {
 
 export const updateBookingStatus = (data) => {
     const AccessToken = getCookieData('authO_tk');
-    
+
     // Log the request data
     console.log('Sending update request:', data);
-    
+
     return axios.post(
         `https://crikonnect-api-production.up.railway.app/api/ground-booking/update-status/${data.bookingId}`,
         { status: data.status },
@@ -94,3 +99,14 @@ export const updateBookingStatus = (data) => {
         }
     );
 };
+*/
+
+// Temporary stub exports to prevent import errors
+export const Signup = () => Promise.resolve({ data: {} });
+export const SignIn = () => Promise.resolve({ data: {} });
+export const TeamCreation = () => Promise.resolve({ data: {} });
+export const fetchMyTeam = () => Promise.resolve({ data: {} });
+export const fetchGrounds = () => Promise.resolve({ data: [] });
+export const getProfiles = () => Promise.resolve({ data: {} });
+export const Bookground = () => Promise.resolve({ data: {} });
+export const updateBookingStatus = () => Promise.resolve({ data: {} });

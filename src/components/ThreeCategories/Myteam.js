@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { fetchMyTeam } from '../../services/services';
+// API INTEGRATION COMMENTED OUT FOR REVAMP
+// import { fetchMyTeam } from '../../services/services';
 import Create from './Create';
 import * as classes from './/threecat.module.scss'
 import Customloader from '../Elements/Customloader';
@@ -11,7 +12,12 @@ const Myteam = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        // ==========================================
+        // API INTEGRATION COMMENTED OUT FOR REVAMP
+        // ==========================================
+
         const getTeamDetails = async () => {
+            /*
             try {
                 const response = await fetchMyTeam();
                 setTeam(response.data.team);
@@ -25,6 +31,11 @@ const Myteam = () => {
             } finally {
                 setLoading(false);
             }
+            */
+
+            // Temporary stub - no API call, just show Create component
+            setTeam(null);
+            setLoading(false);
         };
 
         getTeamDetails();

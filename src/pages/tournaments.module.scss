@@ -1,0 +1,1064 @@
+.tournamentsPage {
+    background-color: #f7f4f1;
+    min-height: 100vh;
+}
+
+// Header Styles
+.pageHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 80px;
+    background: #d32f2f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.headerLogo {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+
+    img {
+        height: 50px;
+        width: auto;
+        display: block;
+    }
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.headerNav {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+
+    a {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        font-family: "HelveticaNeueMedium", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+
+        &:hover {
+            color: #ffffff;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+    }
+}
+
+.hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s ease;
+    z-index: 100;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.mobileMenu {
+    background: transparent !important;
+    border: none !important;
+
+    :global(.ant-menu-item) {
+        padding: 20px 24px !important;
+        margin: 0 !important;
+        height: auto !important;
+        line-height: 1.5 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+
+        a {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-family: "HelveticaNeueMedium", sans-serif !important;
+            font-size: 18px !important;
+            text-decoration: none !important;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.05) !important;
+
+            a {
+                color: #ffffff !important;
+            }
+        }
+    }
+
+    :global(.ant-menu-item-selected) {
+        background: rgba(255, 255, 255, 0.1) !important;
+    }
+}
+
+.tournamentsHero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 80px 80px;
+    overflow: hidden;
+}
+
+.heroBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+    }
+}
+
+.glassContainer {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    padding: 50px 70px;
+    background: rgba(240, 255, 255, 0.20);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 12px;
+    /* border: 1px solid rgba(255, 255, 255, 0.2); */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.tournamentsTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 46px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #ffffff;
+    margin: 0 0 24px 0;
+    line-height: 1.2;
+}
+
+.tournamentsSubtitle {
+    font-family: "Manrope", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+// Problems Section
+.problemsSection {
+    background-color: #f5f5f5;
+    padding: 100px 0;
+}
+
+.problemsContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
+.problemsTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #111111;
+    margin: 0 0 60px 0;
+    text-align: center;
+}
+
+.problemsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.problemItem {
+    background-color: #ffffff;
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+        transform: translateY(-6px);
+    }
+}
+
+.problemDiagonal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, transparent 50%, #d32f2f 50%);
+}
+
+.problemCircle {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    color: #d32f2f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    z-index: 1;
+}
+
+.problemItemTitle {
+    font-family: "HelveticaNeueBold", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 12px 0;
+    line-height: 1.3;
+    padding-right: 40px;
+}
+
+.problemItemText {
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #666666;
+    margin: 0;
+}
+
+// Solution Section - Timeline Style
+.solutionSection {
+    background-color: #ffffff;
+    padding: 100px 0;
+}
+
+.solutionContainer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
+.solutionMainTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #111111;
+    margin: 0 0 80px 0;
+    text-align: center;
+}
+
+.timelineWrapper {
+    position: relative;
+}
+
+.timelineLine {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #d32f2f;
+}
+
+.timelineItem {
+    position: relative;
+    display: flex;
+    gap: 40px;
+    margin-bottom: 60px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.timelineCircle {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    background-color: #d32f2f;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 0 8px #ffffff;
+}
+
+.timelineContent {
+    flex: 1;
+    padding-top: 8px;
+}
+
+.timelineTitle {
+    font-family: "HelveticaNeueBold", sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+}
+
+.timelineText {
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0 0 12px 0;
+}
+
+.timelineHighlight {
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.7;
+    color: #d32f2f;
+    margin: 0;
+}
+
+// Hype Section
+.hypeSection {
+    background-color: #111111;
+    padding: 100px 0;
+}
+
+.hypeContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.hypeContent {
+    border-right: 4px solid #d32f2f;
+    padding-right: 60px;
+}
+
+.hypeTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #ffffff;
+    margin: 0 0 40px 0;
+    line-height: 1.1;
+}
+
+.hypeReasons {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.hypeReason {
+    font-family: "Manrope", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    padding-left: 24px;
+    border-left: 2px solid rgba(211, 47, 47, 0.5);
+}
+
+.hypeImpact {
+    padding-left: 40px;
+}
+
+.hypeImpactTitle {
+    font-family: "HelveticaNeueBold", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 24px 0;
+    line-height: 1.3;
+}
+
+.hypeList {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+
+    li {
+        font-family: "Manrope", sans-serif;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 2;
+        color: rgba(255, 255, 255, 0.7);
+        padding-left: 28px;
+        position: relative;
+
+        &::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #d32f2f;
+            font-weight: 700;
+            font-size: 18px;
+        }
+    }
+}
+
+.hypeStatement {
+    p {
+        font-family: "HelveticaNeueBold", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 12px 0;
+        line-height: 1.4;
+
+        &:last-child {
+            margin-bottom: 0;
+            color: #d32f2f;
+        }
+    }
+}
+
+// How It Works Section
+.howItWorksSection {
+    background-color: #f5f5f5;
+    padding: 100px 0;
+}
+
+.howItWorksContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
+.howItWorksTitle {
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #111111;
+    margin: 0 0 60px 0;
+    text-align: center;
+}
+
+.stepsWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.stepBox {
+    background-color: #ffffff;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        transform: translateY(-8px);
+    }
+}
+
+.stepBgNumber {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-family: "HelveticaNeueCondensedBold", sans-serif;
+    font-size: 180px;
+    font-weight: 900;
+    color: rgba(211, 47, 47, 0.05);
+    line-height: 1;
+    user-select: none;
+}
+
+.stepContentWrapper {
+    position: relative;
+    z-index: 1;
+}
+
+.stepBoxTitle {
+    font-family: "HelveticaNeueBold", sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+}
+
+.stepBoxText {
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0;
+}
+
+// Responsive Styles
+@media(max-width: 1024px) {
+    .pageHeader {
+        padding: 24px 50px;
+    }
+
+    .headerLogo img {
+        height: 45px;
+    }
+
+    .headerNav {
+        gap: 36px;
+
+        a {
+            font-size: 15px;
+        }
+    }
+
+    .tournamentsHero {
+        padding: 120px 50px 60px;
+        min-height: 60vh;
+    }
+
+    .glassContainer {
+        padding: 50px 60px;
+    }
+
+    .tournamentsTitle {
+        font-size: 48px;
+    }
+
+    .tournamentsSubtitle {
+        font-size: 17px;
+    }
+
+    // Problems Section responsive
+    .problemsContainer {
+        padding: 0 50px;
+    }
+
+    .problemsTitle {
+        font-size: 40px;
+    }
+
+    .problemsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+
+    .problemItem {
+        padding: 36px 28px;
+    }
+
+    // Solution Section responsive
+    .solutionContainer {
+        padding: 0 50px;
+    }
+
+    .solutionMainTitle {
+        font-size: 40px;
+    }
+
+    .timelineCircle {
+        width: 70px;
+        height: 70px;
+        font-size: 28px;
+    }
+
+    .timelineLine {
+        left: 35px;
+    }
+
+    .timelineTitle {
+        font-size: 24px;
+    }
+
+    // Hype Section responsive
+    .hypeContainer {
+        padding: 0 50px;
+        gap: 60px;
+    }
+
+    .hypeTitle {
+        font-size: 44px;
+    }
+
+    .hypeContent {
+        padding-right: 50px;
+    }
+
+    .hypeImpact {
+        padding-left: 30px;
+    }
+
+    // How It Works responsive
+    .howItWorksContainer {
+        padding: 0 50px;
+    }
+
+    .howItWorksTitle {
+        font-size: 40px;
+    }
+
+    .stepsWrapper {
+        gap: 32px;
+    }
+
+    .stepBox {
+        padding: 50px 32px;
+    }
+
+    .stepBgNumber {
+        font-size: 160px;
+    }
+
+    .stepBoxTitle {
+        font-size: 24px;
+    }
+}
+
+@media(max-width: 768px) {
+    .pageHeader {
+        padding: 20px 30px;
+    }
+
+    .headerLogo img {
+        height: 40px;
+    }
+
+    .headerNav {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .tournamentsHero {
+        padding: 100px 30px 50px;
+        min-height: 50vh;
+    }
+
+    .glassContainer {
+        padding: 40px 40px;
+    }
+
+    .tournamentsTitle {
+        font-size: 40px;
+    }
+
+    .tournamentsSubtitle {
+        font-size: 16px;
+    }
+
+    // Problems Section responsive
+    .problemsSection {
+        padding: 80px 0;
+    }
+
+    .problemsContainer {
+        padding: 0 30px;
+    }
+
+    .problemsTitle {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
+
+    .problemsGrid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .problemItem {
+        padding: 32px 24px;
+    }
+
+    .problemItemTitle {
+        font-size: 18px;
+    }
+
+    // Solution Section responsive
+    .solutionSection {
+        padding: 80px 0;
+    }
+
+    .solutionContainer {
+        padding: 0 30px;
+    }
+
+    .solutionMainTitle {
+        font-size: 36px;
+        margin-bottom: 60px;
+    }
+
+    .timelineItem {
+        flex-direction: column;
+        gap: 24px;
+        margin-bottom: 50px;
+    }
+
+    .timelineLine {
+        left: 30px;
+    }
+
+    .timelineCircle {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .timelineContent {
+        padding-top: 0;
+    }
+
+    .timelineTitle {
+        font-size: 22px;
+    }
+
+    .timelineText {
+        font-size: 15px;
+    }
+
+    .timelineHighlight {
+        font-size: 15px;
+    }
+
+    // Hype Section responsive
+    .hypeSection {
+        padding: 80px 0;
+    }
+
+    .hypeContainer {
+        padding: 0 30px;
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .hypeContent {
+        border-right: none;
+        border-bottom: 4px solid #d32f2f;
+        padding-right: 0;
+        padding-bottom: 40px;
+    }
+
+    .hypeTitle {
+        font-size: 36px;
+    }
+
+    .hypeReason {
+        font-size: 16px;
+    }
+
+    .hypeImpact {
+        padding-left: 0;
+    }
+
+    .hypeImpactTitle {
+        font-size: 22px;
+    }
+
+    .hypeList li {
+        font-size: 16px;
+    }
+
+    .hypeStatement p {
+        font-size: 18px;
+    }
+
+    // How It Works responsive
+    .howItWorksSection {
+        padding: 80px 0;
+    }
+
+    .howItWorksContainer {
+        padding: 0 30px;
+    }
+
+    .howItWorksTitle {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
+
+    .stepsWrapper {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .stepBox {
+        padding: 50px 36px;
+    }
+
+    .stepBgNumber {
+        font-size: 140px;
+    }
+
+    .stepBoxTitle {
+        font-size: 22px;
+    }
+}
+
+@media(max-width: 480px) {
+    .pageHeader {
+        padding: 18px 20px;
+    }
+
+    .headerLogo img {
+        height: 36px;
+    }
+
+    .hamburger {
+        font-size: 22px;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+    .tournamentsHero {
+        padding: 90px 20px 40px;
+        min-height: 50vh;
+    }
+
+    .glassContainer {
+        padding: 30px 24px;
+    }
+
+    .tournamentsTitle {
+        font-size: 32px;
+        letter-spacing: -1px;
+    }
+
+    .tournamentsSubtitle {
+        font-size: 15px;
+    }
+
+    // Problems Section responsive
+    .problemsSection {
+        padding: 60px 0;
+    }
+
+    .problemsContainer {
+        padding: 0 20px;
+    }
+
+    .problemsTitle {
+        font-size: 28px;
+        margin-bottom: 32px;
+    }
+
+    .problemsGrid {
+        gap: 20px;
+    }
+
+    .problemItem {
+        padding: 28px 20px;
+    }
+
+    .problemDiagonal {
+        width: 70px;
+        height: 70px;
+    }
+
+    .problemCircle {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        top: 14px;
+        right: 14px;
+    }
+
+    .problemItemTitle {
+        font-size: 17px;
+        padding-right: 36px;
+    }
+
+    .problemItemText {
+        font-size: 14px;
+    }
+
+    // Solution Section responsive
+    .solutionSection {
+        padding: 60px 0;
+    }
+
+    .solutionContainer {
+        padding: 0 20px;
+    }
+
+    .solutionMainTitle {
+        font-size: 28px;
+        margin-bottom: 50px;
+    }
+
+    .timelineItem {
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .timelineLine {
+        left: 25px;
+    }
+
+    .timelineCircle {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        box-shadow: 0 0 0 6px #ffffff;
+    }
+
+    .timelineTitle {
+        font-size: 20px;
+    }
+
+    .timelineText {
+        font-size: 14px;
+    }
+
+    .timelineHighlight {
+        font-size: 14px;
+    }
+
+    // Hype Section responsive
+    .hypeSection {
+        padding: 60px 0;
+    }
+
+    .hypeContainer {
+        padding: 0 20px;
+        gap: 40px;
+    }
+
+    .hypeContent {
+        padding-bottom: 32px;
+    }
+
+    .hypeTitle {
+        font-size: 28px;
+        margin-bottom: 32px;
+    }
+
+    .hypeReasons {
+        gap: 20px;
+    }
+
+    .hypeReason {
+        font-size: 15px;
+        padding-left: 20px;
+    }
+
+    .hypeImpactTitle {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .hypeList {
+        margin-bottom: 32px;
+
+        li {
+            font-size: 15px;
+            padding-left: 24px;
+            line-height: 1.8;
+        }
+    }
+
+    .hypeStatement p {
+        font-size: 16px;
+    }
+
+    // How It Works responsive
+    .howItWorksSection {
+        padding: 60px 0;
+    }
+
+    .howItWorksContainer {
+        padding: 0 20px;
+    }
+
+    .howItWorksTitle {
+        font-size: 28px;
+        margin-bottom: 32px;
+    }
+
+    .stepsWrapper {
+        gap: 24px;
+    }
+
+    .stepBox {
+        padding: 40px 28px;
+    }
+
+    .stepBgNumber {
+        font-size: 120px;
+        top: -15px;
+        right: -15px;
+    }
+
+    .stepBoxTitle {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    .stepBoxText {
+        font-size: 15px;
+    }
+}

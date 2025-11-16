@@ -1,3 +1,8 @@
+// ==========================================
+// API INTEGRATION COMMENTED OUT FOR REVAMP
+// ==========================================
+
+/*
 import axios from "axios";
 import { getCookieData } from "../utility/utility";
 
@@ -19,3 +24,7 @@ instance.interceptors.request.use(
 );
 
 export default instance;
+*/
+
+// Temporary export to prevent import errors
+export default null;
